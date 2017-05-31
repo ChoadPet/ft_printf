@@ -12,45 +12,42 @@
 
 #include "ft_printf.h"
 
-void	ft_dec(va_list ap, t_eb *k)
+
+void	ft_char(va_list ap, t_eb *k)
 {
-	k->dst = iab((va_arg(ap, int)), 10);
-	ft_putstr(k->dst);
+	k->dst = ft_strnew(2);
+	k->dst[0] = (char)va_arg(ap, int);
+	k->dst[1] = '\0';
+	write(1, &k->dst[0], 1);
 }
 
-void	ft_string(va_list ap, t_eb *k)
+/*
+**  for %ld or %D
+*/
+
+void	ft_big_D(va_list ap, t_eb *k)
 {
-	k->dst = (va_arg(ap, char *));
+	k->dst = iab((va_arg(ap, long)), 10);
+	ft_putstr(k->dst);
+
+}
+
+/*
+**  for %lo or %O
+*/
+
+void	ft_looctal(va_list ap, t_eb *k)
+{
+	k->dst = ixb((va_arg(ap, unsigned long)), 8, 0);
 	ft_putstr(k->dst);
 }
 
 /*
-**  for unsigned octal
+**  for %lu or %U
 */
 
-void	ft_ooctal(va_list ap, t_eb *k)
+void	ft_ludec(va_list ap, t_eb *k)
 {
-	k->dst = iab((va_arg(ap, unsigned int)), 8);
+	k->dst = iab((va_arg(ap, unsigned long)), 10);
 	ft_putstr(k->dst);
 }
-
-/*
-**  for unsigned hexadecimal
-*/
-
-void	ft_xhex(va_list ap, t_eb *k, char flag)
-{
-	k->dst = ixb((va_arg(ap, unsigned int)), 16, flag);
-	ft_putstr(k->dst);
-}
-
-/*
-**  for unsigned decimal
-*/
-
-void	ft_udec(va_list ap, t_eb *k)
-{
-	k->dst = iab((va_arg(ap, unsigned int)), 10);
-	ft_putstr(k->dst);
-}
-

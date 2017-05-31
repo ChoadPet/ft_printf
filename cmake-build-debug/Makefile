@@ -150,6 +150,33 @@ ft_printf.c.s:
 	$(MAKE) -f CMakeFiles/ft_printf.dir/build.make CMakeFiles/ft_printf.dir/ft_printf.c.s
 .PHONY : ft_printf.c.s
 
+vp_extra_function.o: vp_extra_function.c.o
+
+.PHONY : vp_extra_function.o
+
+# target to build an object file
+vp_extra_function.c.o:
+	$(MAKE) -f CMakeFiles/ft_printf.dir/build.make CMakeFiles/ft_printf.dir/vp_extra_function.c.o
+.PHONY : vp_extra_function.c.o
+
+vp_extra_function.i: vp_extra_function.c.i
+
+.PHONY : vp_extra_function.i
+
+# target to preprocess a source file
+vp_extra_function.c.i:
+	$(MAKE) -f CMakeFiles/ft_printf.dir/build.make CMakeFiles/ft_printf.dir/vp_extra_function.c.i
+.PHONY : vp_extra_function.c.i
+
+vp_extra_function.s: vp_extra_function.c.s
+
+.PHONY : vp_extra_function.s
+
+# target to generate assembly for a file
+vp_extra_function.c.s:
+	$(MAKE) -f CMakeFiles/ft_printf.dir/build.make CMakeFiles/ft_printf.dir/vp_extra_function.c.s
+.PHONY : vp_extra_function.c.s
+
 vp_spec.o: vp_spec.c.o
 
 .PHONY : vp_spec.o
@@ -176,6 +203,33 @@ vp_spec.s: vp_spec.c.s
 vp_spec.c.s:
 	$(MAKE) -f CMakeFiles/ft_printf.dir/build.make CMakeFiles/ft_printf.dir/vp_spec.c.s
 .PHONY : vp_spec.c.s
+
+vp_spec_extra.o: vp_spec_extra.c.o
+
+.PHONY : vp_spec_extra.o
+
+# target to build an object file
+vp_spec_extra.c.o:
+	$(MAKE) -f CMakeFiles/ft_printf.dir/build.make CMakeFiles/ft_printf.dir/vp_spec_extra.c.o
+.PHONY : vp_spec_extra.c.o
+
+vp_spec_extra.i: vp_spec_extra.c.i
+
+.PHONY : vp_spec_extra.i
+
+# target to preprocess a source file
+vp_spec_extra.c.i:
+	$(MAKE) -f CMakeFiles/ft_printf.dir/build.make CMakeFiles/ft_printf.dir/vp_spec_extra.c.i
+.PHONY : vp_spec_extra.c.i
+
+vp_spec_extra.s: vp_spec_extra.c.s
+
+.PHONY : vp_spec_extra.s
+
+# target to generate assembly for a file
+vp_spec_extra.c.s:
+	$(MAKE) -f CMakeFiles/ft_printf.dir/build.make CMakeFiles/ft_printf.dir/vp_spec_extra.c.s
+.PHONY : vp_spec_extra.c.s
 
 vp_treads.o: vp_treads.c.o
 
@@ -216,9 +270,15 @@ help:
 	@echo "... ft_printf.o"
 	@echo "... ft_printf.i"
 	@echo "... ft_printf.s"
+	@echo "... vp_extra_function.o"
+	@echo "... vp_extra_function.i"
+	@echo "... vp_extra_function.s"
 	@echo "... vp_spec.o"
 	@echo "... vp_spec.i"
 	@echo "... vp_spec.s"
+	@echo "... vp_spec_extra.o"
+	@echo "... vp_spec_extra.i"
+	@echo "... vp_spec_extra.s"
 	@echo "... vp_treads.o"
 	@echo "... vp_treads.i"
 	@echo "... vp_treads.s"

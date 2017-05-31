@@ -16,6 +16,7 @@
 int		ft_printf(const char *format, ...)
 {
 	va_list ap;
+	t_eb	k;
 
 	va_start(ap, format);
 	while (*format)
@@ -23,8 +24,12 @@ int		ft_printf(const char *format, ...)
 		while (*format != '%' && *format)
 			ft_putchar(*format++);
 		if (*format == '%' && &(*format++))
-			ft_get(ap, &format);
-		format++;
+		{
+			prep_clear(&k);
+			ft_get(ap, &format, &k);
+		}
+		if (*format)
+			format++;
 	}
 	va_end(ap);
 	return (1);
@@ -33,17 +38,11 @@ int		ft_printf(const char *format, ...)
 
 int 	main(int argc, char **argv)
 {
-	int 	i;
-	int 	j;
-	char 	c;
-	char 	*str;
-
-	j = 230;
-	i = 16;
-	c = 'A';
-	str = "pick";
-	ft_printf("{i:%d, j:%i, c:%c, str:%s}", i, j, c, str);
-	printf("\n-----------------------------------------\n");
-	printf("{printf: i:%d j:%i c:%c str:%s}", i, j, c, str);
+	ft_printf("{d:%d, i:%i, D:%D, c:%c, str:%s\t", -3432, 160, -235484834483, 'Z', "bullshit");
+	ft_printf("{o:%o, O:%O, x:%x, X:%X, u:%u, U:%U}", -3432, -234343433232, 160, 160, 23541, 234343433232);
+	printf("\n-----------Standard--------------------------------------------------\n");
+	printf("{d:%d, i:%i, D:%ld, c:%c, str:%s\t", -3432, 160, -235484834483, 'Z', "bullshit");
+	printf("{o:%o, O:%lo, x:%x, X:%X, u:%u, U:%lu}", -3432, -234343433232, 160, 160, 23541, 234343433232);
+	printf("\n-----------Standard--------------------------------------------------\n");
 	return (0);
 }

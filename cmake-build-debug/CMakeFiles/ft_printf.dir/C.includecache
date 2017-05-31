@@ -26,7 +26,15 @@ libft/libft.h
 string.h
 -
 
+/nfs/2016/v/vpoltave/ft_printf/vp_extra_function.c
+ft_printf.h
+/nfs/2016/v/vpoltave/ft_printf/ft_printf.h
+
 /nfs/2016/v/vpoltave/ft_printf/vp_spec.c
+ft_printf.h
+/nfs/2016/v/vpoltave/ft_printf/ft_printf.h
+
+/nfs/2016/v/vpoltave/ft_printf/vp_spec_extra.c
 ft_printf.h
 /nfs/2016/v/vpoltave/ft_printf/ft_printf.h
 

@@ -52,31 +52,43 @@ typedef struct		s_eb
 	int 			j;
 	int 			z;
 
+	char 			*dst;
 	char 			*sp;
 	char 			*fl;
 
 }					t_eb;
-
-
-
 
 /*
 ** 	 ft_printf. Main function;
 */
 
 int					ft_printf(const char *format, ...);
-void				ft_get(va_list ap, const char **format);
+void				ft_get(va_list ap, const char **format, t_eb *k);
 void				found_flago(const char **format, t_eb *k);
 void				found_speco(const char **format, va_list ap, t_eb *k);
 
-void				ft_dec(va_list ap, t_eb *k);
-void				ft_char(va_list ap, t_eb *k);
-void				ft_string(va_list ap, t_eb *k);
-
 /*
-** main functions for specifiers %d %s and etc
+**  vp_extra_function
 */
 
+int					count_shit(intmax_t value, int base);
+int					count_pussy(uintmax_t value, int base);
+char	 			*iab(intmax_t value, int base);
+char				*ixb(uintmax_t value, int base, char flag);
+void				prep_clear(t_eb *k);
 
+/*
+** main functions for specifiers %d %c and etc
+*/
+
+void				ft_dec(va_list ap, t_eb *k);
+void				ft_string(va_list ap, t_eb *k);
+void				ft_ooctal(va_list ap, t_eb *k);
+void				ft_xhex(va_list ap, t_eb *k, char flag);
+void				ft_udec(va_list ap, t_eb *k);
+void				ft_char(va_list ap, t_eb *k);
+void				ft_big_D(va_list ap, t_eb *k);
+void				ft_looctal(va_list ap, t_eb *k);
+void				ft_ludec(va_list ap, t_eb *k);
 
 #endif
