@@ -1,0 +1,36 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/nfs/2016/v/vpoltave/ft_printf/ft_printf.c
+ft_printf.h
+/nfs/2016/v/vpoltave/ft_printf/ft_printf.h
+stdio.h
+-
+
+/nfs/2016/v/vpoltave/ft_printf/ft_printf.h
+stdlib.h
+-
+unistd.h
+-
+stdarg.h
+-
+libft/libft.h
+/nfs/2016/v/vpoltave/ft_printf/libft/libft.h
+
+/nfs/2016/v/vpoltave/ft_printf/libft/libft.h
+string.h
+-
+
+/nfs/2016/v/vpoltave/ft_printf/vp_spec.c
+ft_printf.h
+/nfs/2016/v/vpoltave/ft_printf/ft_printf.h
+
+/nfs/2016/v/vpoltave/ft_printf/vp_treads.c
+ft_printf.h
+/nfs/2016/v/vpoltave/ft_printf/ft_printf.h
+
