@@ -51,7 +51,6 @@ typedef struct		s_eb
 	int 			ll;
 	int 			j;
 	int 			z;
-
 	char 			*dst;
 	char 			*sp;
 	char 			*fl;
@@ -71,11 +70,17 @@ void				found_speco(const char **format, va_list ap, t_eb *k);
 **  vp_extra_function
 */
 
-int					count_shit(intmax_t value, int base);
-int					count_pussy(uintmax_t value, int base);
+int					count_dforiab(intmax_t value, int base);
+int					count_dforixb(uintmax_t value, int base);
 char	 			*iab(intmax_t value, int base);
 char				*ixb(uintmax_t value, int base, char flag);
 void				prep_clear(t_eb *k);
+
+/*
+**  vp_additional_function
+*/
+
+void				biggest_modifier(t_eb *k);
 
 /*
 ** main functions for specifiers %d %c and etc
@@ -87,7 +92,7 @@ void				ft_ooctal(va_list ap, t_eb *k);
 void				ft_xhex(va_list ap, t_eb *k, char flag);
 void				ft_udec(va_list ap, t_eb *k);
 void				ft_char(va_list ap, t_eb *k);
-void				ft_big_D(va_list ap, t_eb *k);
+void				ft_lddec(va_list ap, t_eb *k);
 void				ft_looctal(va_list ap, t_eb *k);
 void				ft_ludec(va_list ap, t_eb *k);
 

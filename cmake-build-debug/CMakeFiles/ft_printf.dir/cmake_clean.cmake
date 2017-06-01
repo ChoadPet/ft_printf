@@ -4,6 +4,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/ft_printf.dir/vp_spec.c.o"
   "CMakeFiles/ft_printf.dir/vp_spec_extra.c.o"
   "CMakeFiles/ft_printf.dir/vp_extra_function.c.o"
+  "CMakeFiles/ft_printf.dir/vp_additional_function.c.o"
   "ft_printf.pdb"
   "ft_printf"
 )

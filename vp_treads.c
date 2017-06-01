@@ -22,6 +22,7 @@ void	ft_get(va_list ap, const char **format, t_eb *k)
 	while (ft_strchr(k->fl, **format))
 	{
 		found_flago(format, k);
+		biggest_modifier(k);
 		(*format)++;
 	}
 	if (ft_strchr(k->sp, **format))
@@ -67,7 +68,7 @@ void	found_speco(const char **format, va_list ap, t_eb *k)
 	(**format == 'u') ? ft_udec(ap, k) : 0;
 	(**format == 'U') ? ft_ludec(ap, k): 0;
 	((**format == 'c') || (**format == 'C')) ? ft_char(ap, k) : 0;
-	(**format == 'D') ? ft_big_D(ap, k) : 0;
+	(**format == 'D') ? ft_lddec(ap, k) : 0;
 
 }
 

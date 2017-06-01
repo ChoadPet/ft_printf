@@ -16,7 +16,7 @@
 ** count digits for regular itoa_base
 */
 
-int		count_shit(intmax_t value, int base)
+int		count_dforiab(intmax_t value, int base)
 {
 	int i;
 
@@ -35,12 +35,12 @@ int		count_shit(intmax_t value, int base)
 ** count digits for (%O, %x %X etc) itoa_base
 */
 
-int		count_pussy(uintmax_t value, int base)
+int		count_dforixb(uintmax_t value, int base)
 {
 	int i;
 
 	i = 0;
-	while (value != 0)
+	while (value)
 	{
 		value /= base;
 		i++;
@@ -58,7 +58,7 @@ char	*iab(intmax_t value, int base)
 	int			j;
 	char		*str;
 
-	j = count_shit(value, base);
+	j = count_dforiab(value, base);
 	str = (char *)malloc(sizeof(char) * (j + 1));
 	str[j] = '\0';
 	if (value == 0)
@@ -68,7 +68,7 @@ char	*iab(intmax_t value, int base)
 	}
 	if (value < 0 && base == 10)
 		str[0] = '-';
-	while (value != 0)
+	while (value)
 	{
 		i = value % base;
 		if (value < 0)
@@ -87,11 +87,11 @@ char	*iab(intmax_t value, int base)
 
 char	*ixb(uintmax_t value, int base, char flag)
 {
-	intmax_t	i;
+	uintmax_t	i;
 	int			j;
 	char		*str;
 
-	j = count_pussy(value, base);
+	j = count_dforixb(value, base);
 	str = (char *)malloc(sizeof(char) * (j + 1));
 	str[j] = '\0';
 	if (value == 0)
@@ -99,7 +99,7 @@ char	*ixb(uintmax_t value, int base, char flag)
 		str[0] = '0';
 		return (str);
 	}
-	while (value != 0)
+	while (value)
 	{
 		i = value % base;
 		if ((i > 9) && (flag == 'u'))
@@ -129,5 +129,5 @@ void	prep_clear(t_eb *k)
 	k->ll = 0;
 	k->j = 0;
 	k->z = 0;
-
+	k->dst = NULL;
 }

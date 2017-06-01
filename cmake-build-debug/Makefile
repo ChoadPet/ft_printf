@@ -150,6 +150,33 @@ ft_printf.c.s:
 	$(MAKE) -f CMakeFiles/ft_printf.dir/build.make CMakeFiles/ft_printf.dir/ft_printf.c.s
 .PHONY : ft_printf.c.s
 
+vp_additional_function.o: vp_additional_function.c.o
+
+.PHONY : vp_additional_function.o
+
+# target to build an object file
+vp_additional_function.c.o:
+	$(MAKE) -f CMakeFiles/ft_printf.dir/build.make CMakeFiles/ft_printf.dir/vp_additional_function.c.o
+.PHONY : vp_additional_function.c.o
+
+vp_additional_function.i: vp_additional_function.c.i
+
+.PHONY : vp_additional_function.i
+
+# target to preprocess a source file
+vp_additional_function.c.i:
+	$(MAKE) -f CMakeFiles/ft_printf.dir/build.make CMakeFiles/ft_printf.dir/vp_additional_function.c.i
+.PHONY : vp_additional_function.c.i
+
+vp_additional_function.s: vp_additional_function.c.s
+
+.PHONY : vp_additional_function.s
+
+# target to generate assembly for a file
+vp_additional_function.c.s:
+	$(MAKE) -f CMakeFiles/ft_printf.dir/build.make CMakeFiles/ft_printf.dir/vp_additional_function.c.s
+.PHONY : vp_additional_function.c.s
+
 vp_extra_function.o: vp_extra_function.c.o
 
 .PHONY : vp_extra_function.o
@@ -270,6 +297,9 @@ help:
 	@echo "... ft_printf.o"
 	@echo "... ft_printf.i"
 	@echo "... ft_printf.s"
+	@echo "... vp_additional_function.o"
+	@echo "... vp_additional_function.i"
+	@echo "... vp_additional_function.s"
 	@echo "... vp_extra_function.o"
 	@echo "... vp_extra_function.i"
 	@echo "... vp_extra_function.s"

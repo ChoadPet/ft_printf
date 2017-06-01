@@ -5,6 +5,10 @@ CMakeFiles/ft_printf.dir/ft_printf.c.o: ../ft_printf.c
 CMakeFiles/ft_printf.dir/ft_printf.c.o: ../ft_printf.h
 CMakeFiles/ft_printf.dir/ft_printf.c.o: ../libft/libft.h
 
+CMakeFiles/ft_printf.dir/vp_additional_function.c.o: ../ft_printf.h
+CMakeFiles/ft_printf.dir/vp_additional_function.c.o: ../libft/libft.h
+CMakeFiles/ft_printf.dir/vp_additional_function.c.o: ../vp_additional_function.c
+
 CMakeFiles/ft_printf.dir/vp_extra_function.c.o: ../ft_printf.h
 CMakeFiles/ft_printf.dir/vp_extra_function.c.o: ../libft/libft.h
 CMakeFiles/ft_printf.dir/vp_extra_function.c.o: ../vp_extra_function.c
