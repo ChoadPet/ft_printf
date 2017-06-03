@@ -106,6 +106,9 @@
 		<Unit filename="/nfs/2016/v/vpoltave/ft_printf/vp_treads.c">
 			<Option target="ft_printf"/>
 		</Unit>
+		<Unit filename="/nfs/2016/v/vpoltave/ft_printf/vp_widtho_preco_fuct.c">
+			<Option target="ft_printf"/>
+		</Unit>
 		<Unit filename="/nfs/2016/v/vpoltave/ft_printf/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
 		</Unit>

@@ -285,6 +285,33 @@ vp_treads.c.s:
 	$(MAKE) -f CMakeFiles/ft_printf.dir/build.make CMakeFiles/ft_printf.dir/vp_treads.c.s
 .PHONY : vp_treads.c.s
 
+vp_widtho_preco_fuct.o: vp_widtho_preco_fuct.c.o
+
+.PHONY : vp_widtho_preco_fuct.o
+
+# target to build an object file
+vp_widtho_preco_fuct.c.o:
+	$(MAKE) -f CMakeFiles/ft_printf.dir/build.make CMakeFiles/ft_printf.dir/vp_widtho_preco_fuct.c.o
+.PHONY : vp_widtho_preco_fuct.c.o
+
+vp_widtho_preco_fuct.i: vp_widtho_preco_fuct.c.i
+
+.PHONY : vp_widtho_preco_fuct.i
+
+# target to preprocess a source file
+vp_widtho_preco_fuct.c.i:
+	$(MAKE) -f CMakeFiles/ft_printf.dir/build.make CMakeFiles/ft_printf.dir/vp_widtho_preco_fuct.c.i
+.PHONY : vp_widtho_preco_fuct.c.i
+
+vp_widtho_preco_fuct.s: vp_widtho_preco_fuct.c.s
+
+.PHONY : vp_widtho_preco_fuct.s
+
+# target to generate assembly for a file
+vp_widtho_preco_fuct.c.s:
+	$(MAKE) -f CMakeFiles/ft_printf.dir/build.make CMakeFiles/ft_printf.dir/vp_widtho_preco_fuct.c.s
+.PHONY : vp_widtho_preco_fuct.c.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -312,6 +339,9 @@ help:
 	@echo "... vp_treads.o"
 	@echo "... vp_treads.i"
 	@echo "... vp_treads.s"
+	@echo "... vp_widtho_preco_fuct.o"
+	@echo "... vp_widtho_preco_fuct.i"
+	@echo "... vp_widtho_preco_fuct.s"
 .PHONY : help
 
 

@@ -10,6 +10,7 @@ set(CMAKE_DEPENDS_CHECK_C
   "/nfs/2016/v/vpoltave/ft_printf/vp_spec.c" "/nfs/2016/v/vpoltave/ft_printf/cmake-build-debug/CMakeFiles/ft_printf.dir/vp_spec.c.o"
   "/nfs/2016/v/vpoltave/ft_printf/vp_spec_extra.c" "/nfs/2016/v/vpoltave/ft_printf/cmake-build-debug/CMakeFiles/ft_printf.dir/vp_spec_extra.c.o"
   "/nfs/2016/v/vpoltave/ft_printf/vp_treads.c" "/nfs/2016/v/vpoltave/ft_printf/cmake-build-debug/CMakeFiles/ft_printf.dir/vp_treads.c.o"
+  "/nfs/2016/v/vpoltave/ft_printf/vp_widtho_preco_fuct.c" "/nfs/2016/v/vpoltave/ft_printf/cmake-build-debug/CMakeFiles/ft_printf.dir/vp_widtho_preco_fuct.c.o"
   )
 set(CMAKE_C_COMPILER_ID "AppleClang")
 

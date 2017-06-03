@@ -18,16 +18,19 @@ void	ft_get(va_list ap, const char **format, t_eb *k)
 //	char *fl;
 
 	k->sp = "sSpdDioOuUxXcC";
-	k->fl = "#0-+#.123456789 hljz";
+	k->fl = "#0-+#.*123456789 hljz";
 	while (ft_strchr(k->fl, **format))
 	{
+		if (ft_specdig(**format) || **format == '*')
+			fck_width(ap, format, k);
+		if (**format == '.')
+			fck_preco(ap, format, k);
 		found_flago(format, k);
 		biggest_modifier(k);
-		(*format)++;
+		((ft_strchr(k->fl, **format))) ? (*format)++ : 0;
 	}
 	if (ft_strchr(k->sp, **format))
 		found_speco(format, ap, k);
-
 }
 
 void	found_flago(const char **format, t_eb *k)
@@ -69,6 +72,7 @@ void	found_speco(const char **format, va_list ap, t_eb *k)
 	(**format == 'U') ? ft_ludec(ap, k): 0;
 	((**format == 'c') || (**format == 'C')) ? ft_char(ap, k) : 0;
 	(**format == 'D') ? ft_lddec(ap, k) : 0;
+	(**format == 'p') ? ft_point(ap, k) : 0;
 
 }
 

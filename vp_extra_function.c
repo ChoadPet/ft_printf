@@ -129,5 +129,9 @@ void	prep_clear(t_eb *k)
 	k->ll = 0;
 	k->j = 0;
 	k->z = 0;
+	k->w_n = 0;
+	k->p_n = 0;
+	k->widthF = 0;
+	k->precF = 0;
 	k->dst = NULL;
 }

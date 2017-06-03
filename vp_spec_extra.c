@@ -12,6 +12,9 @@
 
 #include "ft_printf.h"
 
+/*
+**  for %c
+*/
 
 void	ft_char(va_list ap, t_eb *k)
 {
@@ -22,50 +25,84 @@ void	ft_char(va_list ap, t_eb *k)
 }
 
 /*
-**  for %ld or %D
+**  for %D
 */
 
 void	ft_lddec(va_list ap, t_eb *k)
 {
-	(k->h == 1) ? (k->l = 1) : 0;
-	(k->hh == 1) ? (k->l = 1) : 0;
-	(k->l == 1) ? (k->dst = iab((va_arg(ap, long)), 10)) : 0;
-	(k->ll == 1) ? (k->dst = iab((va_arg(ap, long long)), 10)) : 0;
-	(k->j == 1) ? (k->dst = iab((va_arg(ap, intmax_t)), 10)) : 0;
-	(k->z == 1) ? (k->dst = iab((va_arg(ap, size_t)), 10)) : 0;
-	(k->dst == NULL) ? (k->dst = iab((va_arg(ap, long)), 10)) : 0;
+	if ((k->h == 1) || (k->hh == 1) || (k->l == 1) ||
+		(k->ll == 1) || (k->j == 1) || (k->z == 1))
+	{
+		(k->h == 1) ? (k->l = 1) : 0;
+		(k->hh == 1) ? (k->l = 1) : 0;
+		(k->l == 1) ? (k->dst = iab((va_arg(ap, long)), 10)) : 0;
+		(k->ll == 1) ? (k->dst = iab((va_arg(ap, long long)), 10)) : 0;
+		(k->j == 1) ? (k->dst = iab((va_arg(ap, intmax_t)), 10)) : 0;
+		(k->z == 1) ? (k->dst = iab((va_arg(ap, size_t)), 10)) : 0;
+	}
+	else
+		k->dst = iab((va_arg(ap, long)), 10);
+	if (k->precF == 1)
+		found_preco(k);
+	else if (k->widthF == 1)
+		found_width(k);
+	else if ((k->widthF == 1) && (k->minusF == 1))
+		found_waminus(k);
 	ft_putstr(k->dst);
 
 }
 
 /*
-**  for %lo or %O
+**  for %O
 */
 
 void	ft_looctal(va_list ap, t_eb *k)
 {
-	(k->h == 1) ? (k->l = 1) : 0;
-	(k->hh == 1) ? (k->l = 1) : 0;
-	(k->l == 1) ? (k->dst = ixb((va_arg(ap, unsigned long)), 8, 0)) : 0;
-	(k->ll == 1) ? (k->dst = ixb((va_arg(ap, unsigned long long)), 8, 0)) : 0;
-	(k->j == 1) ? (k->dst = ixb((va_arg(ap, uintmax_t)), 8, 0)) : 0;
-	(k->z == 1) ? (k->dst = ixb((va_arg(ap, size_t)), 8, 0)) : 0;
-	(k->dst == NULL) ? (k->dst = ixb((va_arg(ap, unsigned long)), 8, 0)) : 0;
+	if ((k->h == 1) || (k->hh == 1) || (k->l == 1) ||
+		(k->ll == 1) || (k->j == 1) || (k->z == 1))
+	{
+		(k->h == 1) ? (k->l = 1) : 0;
+		(k->hh == 1) ? (k->l = 1) : 0;
+		(k->l == 1) ? (k->dst = ixb((va_arg(ap, unsigned long)), 8, 0)) : 0;
+		(k->ll == 1) ? (k->dst = ixb((va_arg(ap, unsigned long long)), 8, 0)) : 0;
+		(k->j == 1) ? (k->dst = ixb((va_arg(ap, uintmax_t)), 8, 0)) : 0;
+		(k->z == 1) ? (k->dst = ixb((va_arg(ap, size_t)), 8, 0)) : 0;
+	}
+	else
+		k->dst = ixb((va_arg(ap, unsigned long)), 8, 0);
+	if (k->precF == 1)
+		found_preco(k);
+	else if (k->widthF == 1)
+		found_width(k);
+	else if ((k->widthF == 1) && (k->minusF == 1))
+		found_waminus(k);
 	ft_putstr(k->dst);
 }
 
 /*
-**  for %lu or %U
+**  for %U
 */
 
 void	ft_ludec(va_list ap, t_eb *k)
 {
-	(k->h == 1) ? (k->l = 1) : 0;
-	(k->hh == 1) ? (k->l = 1) : 0;
-	(k->l == 1) ? (k->dst = ixb((va_arg(ap, unsigned long)), 10, 0)) : 0;
-	(k->ll == 1) ? (k->dst = ixb((va_arg(ap, unsigned long long)), 10, 0)) : 0;
-	(k->j == 1) ? (k->dst = ixb((va_arg(ap, uintmax_t)), 10, 0)) : 0;
-	(k->z == 1) ? (k->dst = ixb((va_arg(ap, size_t)), 10, 0)) : 0;
-	(k->dst == NULL) ? (k->dst = ixb((va_arg(ap, unsigned long)), 10, 0)) : 0;
+	if ((k->h == 1) || (k->hh == 1) || (k->l == 1) ||
+		(k->ll == 1) || (k->j == 1) || (k->z == 1))
+	{
+		(k->h == 1) ? (k->l = 1) : 0;
+		(k->hh == 1) ? (k->l = 1) : 0;
+		(k->l == 1) ? (k->dst = ixb((va_arg(ap, unsigned long)), 10, 0)) : 0;
+		(k->ll == 1) ? (k->dst = ixb((va_arg(ap, unsigned long long)), 10, 0)) : 0;
+		(k->j == 1) ? (k->dst = ixb((va_arg(ap, uintmax_t)), 10, 0)) : 0;
+		(k->z == 1) ? (k->dst = ixb((va_arg(ap, size_t)), 10, 0)) : 0;
+	}
+	else
+		(k->dst == NULL) ? (k->dst = ixb((va_arg(ap, unsigned long)), 10, 0)) : 0;
+	ft_putstr(k->dst);
+}
+
+void	ft_point(va_list ap, t_eb *k)
+{
+	ft_putstr("0x");
+	k->dst = ixb(va_arg(ap, unsigned long), 16, 'l');
 	ft_putstr(k->dst);
 }

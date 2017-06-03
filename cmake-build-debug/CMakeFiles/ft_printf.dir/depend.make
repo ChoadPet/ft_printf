@@ -25,3 +25,7 @@ CMakeFiles/ft_printf.dir/vp_treads.c.o: ../ft_printf.h
 CMakeFiles/ft_printf.dir/vp_treads.c.o: ../libft/libft.h
 CMakeFiles/ft_printf.dir/vp_treads.c.o: ../vp_treads.c
 
+CMakeFiles/ft_printf.dir/vp_widtho_preco_fuct.c.o: ../ft_printf.h
+CMakeFiles/ft_printf.dir/vp_widtho_preco_fuct.c.o: ../libft/libft.h
+CMakeFiles/ft_printf.dir/vp_widtho_preco_fuct.c.o: ../vp_widtho_preco_fuct.c
+

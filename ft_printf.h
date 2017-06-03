@@ -42,6 +42,20 @@ typedef struct		s_eb
 	int 			zeroS;
 
 	/*
+	** Width controls the minimum number
+	*/
+
+	int 			widthF;
+	int 			w_n;
+
+	/*
+	** Precision controls the max number of characters to print
+	*/
+
+	int				precF;
+	int 			p_n;
+
+	/*
 	** 	length modifier
 	*/
 
@@ -75,12 +89,19 @@ int					count_dforixb(uintmax_t value, int base);
 char	 			*iab(intmax_t value, int base);
 char				*ixb(uintmax_t value, int base, char flag);
 void				prep_clear(t_eb *k);
+int					ft_specdig(int format);
 
 /*
-**  vp_additional_function
+**  functions for width, precision and (-) flag
 */
 
 void				biggest_modifier(t_eb *k);
+void				fck_preco(va_list ap, const char **format, t_eb *k);
+void				fck_width(va_list ap, const char **format, t_eb *k);
+void				found_width(t_eb *k);
+void				found_waminus(t_eb *k);
+void				found_preco(t_eb *k);
+void				found_spreco(t_eb *k);
 
 /*
 ** main functions for specifiers %d %c and etc
@@ -95,5 +116,6 @@ void				ft_char(va_list ap, t_eb *k);
 void				ft_lddec(va_list ap, t_eb *k);
 void				ft_looctal(va_list ap, t_eb *k);
 void				ft_ludec(va_list ap, t_eb *k);
+void				ft_point(va_list ap, t_eb *k);
 
 #endif

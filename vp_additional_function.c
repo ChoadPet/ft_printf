@@ -40,3 +40,53 @@ void	biggest_modifier(t_eb *k)
 	k->h == 1 ? k->hh = 0 : 0;
 }
 
+int		ft_specdig(int format)
+{
+	if (format >= '1' && format <= '9')
+		return (1);
+	else
+		return (0);
+}
+
+void	fck_width(va_list ap, const char **format, t_eb *k)
+{
+	k->widthF = 1;
+	while (ft_isdigit(**format) || **format == '*')
+	{
+		if (**format == '*')
+		{
+			k->w_n = va_arg(ap, int);
+			(*format)++;
+		}
+		else if (ft_isdigit(**format))
+		{
+			k->w_n = ft_atoi(*format);
+			while (ft_isdigit(**format))
+				(*format)++;
+		}
+	}
+}
+
+void	fck_preco(va_list ap, const char **format, t_eb *k)
+{
+	k->precF = 1;
+	while ((ft_specdig(**format)) || (**format == '*') || (**format ==  '.'))
+	{
+		while (**format == '.')
+			(*format)++;
+		if (**format == '*')
+		{
+			k->p_n = va_arg(ap, int);
+			(*format)++;
+		}
+		else if (ft_specdig(**format))
+		{
+			k->p_n = ft_atoi(*format);
+			while (ft_isdigit(**format))
+				(*format)++;
+		}
+		else
+			k->p_n = 0;
+	}
+
+}
