@@ -35,25 +35,27 @@ typedef struct		s_eb
 	** 	flags
 	*/
 
-	int 			minusF;
-	int 			plusF;
-	int				spaceF;
-	int 			hashS;
-	int 			zeroS;
+	int 			minus;
+	int 			plus;
+	int				space;
+	int 			hash;
+	int 			zero;
 
 	/*
 	** Width controls the minimum number
 	*/
 
-	int 			widthF;
+	int 			width;
 	int 			w_n;
 
 	/*
 	** Precision controls the max number of characters to print
 	*/
 
-	int				precF;
+	int				prec;
 	int 			p_n;
+
+	int 			outn;
 
 	/*
 	** 	length modifier
@@ -65,6 +67,7 @@ typedef struct		s_eb
 	int 			ll;
 	int 			j;
 	int 			z;
+	int 			neg;
 	char 			*dst;
 	char 			*sp;
 	char 			*fl;
@@ -99,9 +102,8 @@ void				biggest_modifier(t_eb *k);
 void				fck_preco(va_list ap, const char **format, t_eb *k);
 void				fck_width(va_list ap, const char **format, t_eb *k);
 void				found_width(t_eb *k);
-void				found_waminus(t_eb *k);
 void				found_preco(t_eb *k);
-void				found_spreco(t_eb *k);
+void				print_shit(t_eb *k);
 
 /*
 ** main functions for specifiers %d %c and etc

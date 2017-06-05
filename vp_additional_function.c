@@ -50,12 +50,17 @@ int		ft_specdig(int format)
 
 void	fck_width(va_list ap, const char **format, t_eb *k)
 {
-	k->widthF = 1;
+	k->width = 1;
 	while (ft_isdigit(**format) || **format == '*')
 	{
 		if (**format == '*')
 		{
 			k->w_n = va_arg(ap, int);
+			if (k->w_n < 0)
+			{
+				k->w_n *= -1;
+				k->minus = 1;
+			}
 			(*format)++;
 		}
 		else if (ft_isdigit(**format))
@@ -69,8 +74,8 @@ void	fck_width(va_list ap, const char **format, t_eb *k)
 
 void	fck_preco(va_list ap, const char **format, t_eb *k)
 {
-	k->precF = 1;
-	while ((ft_specdig(**format)) || (**format == '*') || (**format ==  '.'))
+	k->prec = 1;
+	while ((ft_isdigit(**format)) || (**format == '*') || (**format ==  '.'))
 	{
 		while (**format == '.')
 			(*format)++;
@@ -79,7 +84,7 @@ void	fck_preco(va_list ap, const char **format, t_eb *k)
 			k->p_n = va_arg(ap, int);
 			(*format)++;
 		}
-		else if (ft_specdig(**format))
+		else if (ft_isdigit(**format))
 		{
 			k->p_n = ft_atoi(*format);
 			while (ft_isdigit(**format))

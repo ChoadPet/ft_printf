@@ -118,11 +118,11 @@ char	*ixb(uintmax_t value, int base, char flag)
 
 void	prep_clear(t_eb *k)
 {
-	k->minusF = 0;
-	k->plusF = 0;
-	k->spaceF = 0;
-	k->hashS = 0;
-	k->zeroS = 0;
+	k->minus = 0;
+	k->plus = 0;
+	k->space = 0;
+	k->hash = 0;
+	k->zero = 0;
 	k->h = 0;
 	k->hh = 0;
 	k->l = 0;
@@ -131,7 +131,9 @@ void	prep_clear(t_eb *k)
 	k->z = 0;
 	k->w_n = 0;
 	k->p_n = 0;
-	k->widthF = 0;
-	k->precF = 0;
+	k->width = 0;
+	k->prec = 0;
+	k->outn = 0;
+	k->neg = 0;
 	k->dst = NULL;
 }
