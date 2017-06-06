@@ -56,6 +56,7 @@ typedef struct		s_eb
 	int 			p_n;
 
 	int 			outn;
+	int 			scount;
 
 	/*
 	** 	length modifier

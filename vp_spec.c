@@ -31,13 +31,13 @@ void	ft_dec(va_list ap, t_eb *k)
 	else
 		k->dst = iab((va_arg(ap, int)), 10);
 	if (k->prec)
-		found_preco(k);
-	if (k->width)
 	{
-		found_width(k);
-		
+		found_preco(k);
+		((k->plus) && !(k->neg)) ? k->dst = ft_strjoin("+", k->dst) : 0;
 	}
-	print_shit(k);
+	if (k->width)
+		found_width(k);
+	ft_putstr(k->dst);
 }
 
 /*

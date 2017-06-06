@@ -134,6 +134,7 @@ void	prep_clear(t_eb *k)
 	k->width = 0;
 	k->prec = 0;
 	k->outn = 0;
+	k->scount = 0;
 	k->neg = 0;
 	k->dst = NULL;
 }

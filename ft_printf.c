@@ -68,7 +68,7 @@ int 	main(int argc, char **argv)
 //	printf("d:%.33lo\n", 12);
 //	printf("s:%.*.1s\n", 40, "Bullshit");
 	printf("\n--------------------Width-----------------------------------------\n");
-	printf("\tcount: %d\n",  ft_printf("[4d:  [%4d]", 10));
+	printf("\tcount: %d\n",  ft_printf("[4d:  [%1d]", 10));
 	printf("\tcount: %d\n",  ft_printf("[4d:  [%4d]", -10));
 	printf("\tcount: %d\n",  ft_printf("[-4d: [%-4d]", 10));
 	printf("\tcount: %d\n",  ft_printf("[-4d: [%-4d]", -10));
