@@ -59,17 +59,17 @@ void	found_flago(const char **format, t_eb *k)
 
 void	found_speco(const char **format, va_list ap, t_eb *k)
 {
-	((**format == 'd') || (**format == 'i')) ? ft_dec(ap, k) : 0;
-	(**format == 's') ? ft_string(ap, k) : 0;
-	(**format == 'o') ? ft_ooctal(ap, k) : 0;
-	(**format == 'O') ? ft_looctal(ap, k) : 0;
-	(**format == 'x') ? ft_xhex(ap, k, 'l') : 0;
-	(**format == 'X') ? ft_xhex(ap, k, 'u') : 0;
-	(**format == 'u') ? ft_udec(ap, k) : 0;
-	(**format == 'U') ? ft_ludec(ap, k): 0;
-	((**format == 'c') || (**format == 'C')) ? ft_char(ap, k) : 0;
-	(**format == 'D') ? ft_lddec(ap, k) : 0;
-	(**format == 'p') ? ft_point(ap, k) : 0;
+	((**format == 'd') || (**format == 'i')) ? ft_dec(ap, k, format) : 0;
+	(**format == 's') ? ft_string(ap, k, format) : 0;
+	(**format == 'o') ? ft_ooctal(ap, k, format) : 0;
+	(**format == 'O') ? ft_looctal(ap, k, format) : 0;
+	(**format == 'x') ? ft_xhex(ap, k, format) : 0;
+	(**format == 'X') ? ft_xhex(ap, k, format) : 0;
+	(**format == 'u') ? ft_udec(ap, k, format) : 0;
+	(**format == 'U') ? ft_ludec(ap, k, format): 0;
+	((**format == 'c') || (**format == 'C')) ? ft_char(ap, k, format) : 0;
+	(**format == 'D') ? ft_lddec(ap, k, format) : 0;
+	(**format == 'p') ? ft_point(ap, k, format) : 0;
 
 }
 

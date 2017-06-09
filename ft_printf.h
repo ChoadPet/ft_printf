@@ -47,6 +47,7 @@ typedef struct		s_eb
 
 	int 			width;
 	int 			w_n;
+	int 			wcount;
 
 	/*
 	** Precision controls the max number of characters to print
@@ -54,9 +55,9 @@ typedef struct		s_eb
 
 	int				prec;
 	int 			p_n;
+	int 			pcount;
 
 	int 			outn;
-	int 			scount;
 
 	/*
 	** 	length modifier
@@ -91,7 +92,7 @@ void				found_speco(const char **format, va_list ap, t_eb *k);
 int					count_dforiab(intmax_t value, int base);
 int					count_dforixb(uintmax_t value, int base);
 char	 			*iab(intmax_t value, int base);
-char				*ixb(uintmax_t value, int base, char flag);
+char				*ixb(uintmax_t value, int base, const char **format);
 void				prep_clear(t_eb *k);
 int					ft_specdig(int format);
 
@@ -102,23 +103,27 @@ int					ft_specdig(int format);
 void				biggest_modifier(t_eb *k);
 void				fck_preco(va_list ap, const char **format, t_eb *k);
 void				fck_width(va_list ap, const char **format, t_eb *k);
-void				found_width(t_eb *k);
+void				found_width(t_eb *k, const char **format, int flag);
 void				found_preco(t_eb *k);
-void				print_shit(t_eb *k);
+void				hash_func(t_eb *k, const char **format);
+void				print_zero(t_eb *k, const char **format);
+void				print_yminus(t_eb *k, const char **format);
+void				print_nminus(t_eb *k, const char **format);
+void				found_ignored(t_eb *k);
 
 /*
 ** main functions for specifiers %d %c and etc
 */
 
-void				ft_dec(va_list ap, t_eb *k);
-void				ft_string(va_list ap, t_eb *k);
-void				ft_ooctal(va_list ap, t_eb *k);
-void				ft_xhex(va_list ap, t_eb *k, char flag);
-void				ft_udec(va_list ap, t_eb *k);
-void				ft_char(va_list ap, t_eb *k);
-void				ft_lddec(va_list ap, t_eb *k);
-void				ft_looctal(va_list ap, t_eb *k);
-void				ft_ludec(va_list ap, t_eb *k);
-void				ft_point(va_list ap, t_eb *k);
+void				ft_dec(va_list ap, t_eb *k, const char **format);
+void				ft_string(va_list ap, t_eb *k, const char **format);
+void				ft_ooctal(va_list ap, t_eb *k, const char **format);
+void				ft_xhex(va_list ap, t_eb *k, const char **format);
+void				ft_udec(va_list ap, t_eb *k, const char **format);
+void				ft_char(va_list ap, t_eb *k, const char **format);
+void				ft_lddec(va_list ap, t_eb *k, const char **format);
+void				ft_looctal(va_list ap, t_eb *k, const char **format);
+void				ft_ludec(va_list ap, t_eb *k, const char **format);
+void				ft_point(va_list ap, t_eb *k, const char **format);
 
 #endif

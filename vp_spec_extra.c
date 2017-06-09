@@ -16,7 +16,7 @@
 **  for %c
 */
 
-void	ft_char(va_list ap, t_eb *k)
+void	ft_char(va_list ap, t_eb *k, const char **format)
 {
 	k->dst = ft_strnew(2);
 	k->dst[0] = (char) va_arg(ap, int);
@@ -28,7 +28,7 @@ void	ft_char(va_list ap, t_eb *k)
 **  for %D
 */
 
-void	ft_lddec(va_list ap, t_eb *k)
+void	ft_lddec(va_list ap, t_eb *k, const char **format)
 {
 	if ((k->h) || (k->hh) || (k->l) || (k->ll) || (k->j) || (k->z))
 	{
@@ -49,7 +49,7 @@ void	ft_lddec(va_list ap, t_eb *k)
 **  for %O
 */
 
-void	ft_looctal(va_list ap, t_eb *k)
+void	ft_looctal(va_list ap, t_eb *k, const char **format)
 {
 	k->plus = 0;
 	if ((k->h) || (k->hh) || (k->l) || (k->ll) || (k->j) || (k->z))
@@ -70,7 +70,7 @@ void	ft_looctal(va_list ap, t_eb *k)
 **  for %U
 */
 
-void	ft_ludec(va_list ap, t_eb *k)
+void	ft_ludec(va_list ap, t_eb *k, const char **format)
 {
 	k->plus = 0;
 	if ((k->h) || (k->hh) || (k->l) || (k->ll) || (k->j) || (k->z))
@@ -87,9 +87,8 @@ void	ft_ludec(va_list ap, t_eb *k)
 	ft_putstr(k->dst);
 }
 
-void	ft_point(va_list ap, t_eb *k)
+void	ft_point(va_list ap, t_eb *k, const char **format)
 {
-	ft_putstr("0x");
-	k->dst = ixb(va_arg(ap, unsigned long), 16, 'l');
-	ft_putstr(k->dst);
+
+
 }

@@ -16,7 +16,7 @@
 **  for %d
 */
 
-void	ft_dec(va_list ap, t_eb *k)
+void	ft_dec(va_list ap, t_eb *k, const char **format)
 {
 	k->hash = 0;
 	if ((k->h) || (k->hh) || (k->l) || (k->ll) || (k->j) || (k->z))
@@ -30,21 +30,33 @@ void	ft_dec(va_list ap, t_eb *k)
 	}
 	else
 		k->dst = iab((va_arg(ap, int)), 10);
+	(k->dst[0] == '-') ? (k->neg = 1) : (k->neg = 0);
 	if (k->prec)
 	{
 		found_preco(k);
-		((k->plus) && !(k->neg)) ? k->dst = ft_strjoin("+", k->dst) : 0;
+		(!(k->width) && (k->plus) && !(k->neg)) ? k->dst = ft_strjoin("+", k->dst) : 0;
 	}
 	if (k->width)
-		found_width(k);
-	ft_putstr(k->dst);
+	{
+		if (k->plus && !(k->neg))
+			found_width(k, format, 1);
+		else if (k->plus && k->neg)
+			found_width(k, format, 0);
+		else if (k->plus == 0 && !(k->neg))
+			found_width(k, format, 0);
+		else if (k->plus == 0 && (k->neg))
+			found_width(k, format, 0);
+	}
+	else
+		ft_putstr(k->dst);
+
 }
 
 /*
 **  for %s
 */
 
-void	ft_string(va_list ap, t_eb *k)
+void	ft_string(va_list ap, t_eb *k, const char **format)
 {
 	int count;
 
@@ -74,10 +86,9 @@ void	ft_string(va_list ap, t_eb *k)
 **  for unsigned octal %o
 */
 
-void	ft_ooctal(va_list ap, t_eb *k)
+void	ft_ooctal(va_list ap, t_eb *k, const char **format)
 {
 	k->plus = 0;
-	(k->hash == 1) ? ft_putstr("0") : 0;
 	if ((k->h) || (k->hh) || (k->l) || (k->ll) || (k->j) || (k->z))
 	{
 		(k->h == 1) ? (k->dst = iab((unsigned short)(va_arg(ap, int)), 8)) : 0;
@@ -89,37 +100,35 @@ void	ft_ooctal(va_list ap, t_eb *k)
 	}
 	else
 		k->dst = iab((va_arg(ap, unsigned int)), 8);
-	ft_putstr(k->dst);
 }
 
 /*
 **  for %x and %X
 */
 
-void	ft_xhex(va_list ap, t_eb *k, char flag)
+void	ft_xhex(va_list ap, t_eb *k, char const **format)
 {
 	k->plus = 0;
-	((k->hash == 1) && (flag == 'l')) ? ft_putstr("0x") : 0;
-	((k->hash == 1) && (flag == 'u')) ? ft_putstr("0X") : 0;
 	if ((k->h) || (k->hh) || (k->l) || (k->ll) || (k->j) || (k->z))
 	{
-		(k->h == 1) ? (k->dst = ixb((unsigned short)(va_arg(ap, unsigned int)), 16, flag)) : 0;
-		(k->hh == 1) ? (k->dst = ixb((unsigned char)(va_arg(ap, unsigned int)), 16, flag)) : 0;
-		(k->l == 1) ? (k->dst = ixb((va_arg(ap, unsigned long)), 16, flag)) : 0;
-		(k->ll == 1) ? (k->dst = ixb((va_arg(ap, unsigned long long)), 16, flag)) : 0;
-		(k->j == 1) ? (k->dst = ixb((va_arg(ap, uintmax_t)), 16, flag)) : 0;
-		(k->z == 1) ? (k->dst = ixb((va_arg(ap, size_t)), 16, flag)) : 0;
+		(k->h == 1) ? (k->dst = ixb((unsigned short)(va_arg(ap, unsigned int)), 16, format)) : 0;
+		(k->hh == 1) ? (k->dst = ixb((unsigned char)(va_arg(ap, unsigned int)), 16, format)) : 0;
+		(k->l == 1) ? (k->dst = ixb((va_arg(ap, unsigned long)), 16, format)) : 0;
+		(k->ll == 1) ? (k->dst = ixb((va_arg(ap, unsigned long long)), 16, format)) : 0;
+		(k->j == 1) ? (k->dst = ixb((va_arg(ap, uintmax_t)), 16, format)) : 0;
+		(k->z == 1) ? (k->dst = ixb((va_arg(ap, size_t)), 16, format)) : 0;
 	}
 	else
-		k->dst = ixb((va_arg(ap, unsigned int)), 16, flag);
-	ft_putstr(k->dst);
+		k->dst = ixb((va_arg(ap, unsigned int)), 16, format);
+
+
 }
 
 /*
 **  for unsigned decimal %u
 */
 
-void	ft_udec(va_list ap, t_eb *k)
+void	ft_udec(va_list ap, t_eb *k, const char **format)
 {
 	k->plus = 0;
 	if ((k->h) || (k->hh) || (k->l) || (k->ll) || (k->j) || (k->z))

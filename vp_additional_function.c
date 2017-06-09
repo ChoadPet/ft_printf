@@ -38,6 +38,7 @@ void	biggest_modifier(t_eb *k)
 	if ((k->l == 1) && !(k->h = 0))
 		k->hh = 0;
 	k->h == 1 ? k->hh = 0 : 0;
+	found_ignored(k);
 }
 
 int		ft_specdig(int format)
@@ -93,5 +94,15 @@ void	fck_preco(va_list ap, const char **format, t_eb *k)
 		else
 			k->p_n = 0;
 	}
+
+}
+
+void	found_ignored(t_eb *k)
+{
+	if (k->plus && k->space)
+		k->space = 0;
+	if (((k->minus) || (k->prec)) && (k->zero))
+		k->zero = 0;
+
 
 }

@@ -85,7 +85,7 @@ char	*iab(intmax_t value, int base)
 ** (%O, %x %X etc) itoa_base
 */
 
-char	*ixb(uintmax_t value, int base, char flag)
+char	*ixb(uintmax_t value, int base, char const **format)
 {
 	uintmax_t	i;
 	int			j;
@@ -102,9 +102,9 @@ char	*ixb(uintmax_t value, int base, char flag)
 	while (value)
 	{
 		i = value % base;
-		if ((i > 9) && (flag == 'u'))
+		if ((i > 9) && (**format == 'X'))
 			i += 7;
-		else if ((i > 9) && (flag == 'l'))
+		else if ((i > 9) && (**format== 'x'))
 			i += 39;
 		str[j-- - 1] = (char)(i + 48);
 		value /= base;
@@ -134,7 +134,8 @@ void	prep_clear(t_eb *k)
 	k->width = 0;
 	k->prec = 0;
 	k->outn = 0;
-	k->scount = 0;
+	k->wcount = 0;
+	k->pcount = 0;
 	k->neg = 0;
 	k->dst = NULL;
 }
