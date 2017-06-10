@@ -73,3 +73,8 @@ void	found_speco(const char **format, va_list ap, t_eb *k)
 
 }
 
+void				found_spreco(t_eb *k)
+{
+	
+}
+

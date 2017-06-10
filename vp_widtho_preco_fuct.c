@@ -45,10 +45,7 @@ void	found_width(t_eb *k, const char **format, int flag)
 	if ((k->zero) && !(k->space))
 		print_zero(k, format);
 	else if ((k->zero) && (k->space))
-	{
-		k->wcount--;
 		print_zero(k, format);
-	}
 
 }
 
@@ -56,30 +53,68 @@ void	found_width(t_eb *k, const char **format, int flag)
 void	print_zero(t_eb *k, const char **format)
 {
 	if (k->plus && !(k->neg))
+	{
 		ft_putchar('+');
-	else if (k->neg)
+		k->outn++;
+	}
+	if (k->space && !(k->neg))
+		ft_putchar(' ');
+	if (k->neg)
 		ft_putchar('-');
 	while (k->wcount--)
 		write(1, "0", 1);
-	ft_putstr(k->dst + 1);
+	((k->space) && !(k->neg)) ? ft_putstr(k->dst) : ft_putstr(k->dst + 1);
+	k->outn += ft_strlen(k->dst);
 }
 
 void	print_nminus(t_eb *k, const char **format)
 {
-	while (k->wcount--)
-		write(1, " ", 1);
-	if (k->plus && !(k->neg))
+	while (k->wcount-- && write(1, " ", 1))
+		k->outn++;
+	if ((k->space && !(k->neg)) ? k->outn++ : 0)
+		ft_putchar(' ');
+	if ((k->plus && !(k->neg)) ? k->outn++ : 0)
 		ft_putchar('+');
 	ft_putstr(k->dst);
+	k->outn += ft_strlen(k->dst);
 }
 
 void	print_yminus(t_eb *k, const char **format)
 {
 	if (k->plus && !(k->neg))
+	{
 		ft_putchar('+');
+		k->outn++;
+	}
+
+	if (k->space && !(k->neg))
+	{
+		ft_putchar(' ');
+		k->outn++;
+	}
 	ft_putstr(k->dst);
+	k->outn += ft_strlen(k->dst);
 	while (k->wcount--)
+	{
 		write(1, " ", 1);
+		k->outn++;
+	}
+}
+
+void	print_wany(t_eb *k)
+{
+	if (k->plus && !(k->neg))
+	{
+		ft_putchar('+');
+		k->outn++;
+	}
+	if (k->space && !(k->neg))
+	{
+		ft_putchar(' ');
+		k->outn++;
+	}
+	ft_putstr(k->dst);
+	k->outn += ft_strlen(k->dst);
 }
 
 void	hash_func(t_eb *k, const char **format)

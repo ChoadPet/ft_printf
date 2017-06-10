@@ -94,7 +94,6 @@ void	fck_preco(va_list ap, const char **format, t_eb *k)
 		else
 			k->p_n = 0;
 	}
-
 }
 
 void	found_ignored(t_eb *k)

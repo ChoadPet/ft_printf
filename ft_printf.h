@@ -105,11 +105,18 @@ void				fck_preco(va_list ap, const char **format, t_eb *k);
 void				fck_width(va_list ap, const char **format, t_eb *k);
 void				found_width(t_eb *k, const char **format, int flag);
 void				found_preco(t_eb *k);
+void				found_spreco(t_eb *k);
+void				found_ignored(t_eb *k);
 void				hash_func(t_eb *k, const char **format);
+
+/*
+**  print functions
+*/
+
 void				print_zero(t_eb *k, const char **format);
 void				print_yminus(t_eb *k, const char **format);
 void				print_nminus(t_eb *k, const char **format);
-void				found_ignored(t_eb *k);
+void				print_wany(t_eb *k);
 
 /*
 ** main functions for specifiers %d %c and etc

@@ -133,7 +133,6 @@ void	prep_clear(t_eb *k)
 	k->p_n = 0;
 	k->width = 0;
 	k->prec = 0;
-	k->outn = 0;
 	k->wcount = 0;
 	k->pcount = 0;
 	k->neg = 0;

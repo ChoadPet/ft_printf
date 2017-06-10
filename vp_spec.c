@@ -30,15 +30,12 @@ void	ft_dec(va_list ap, t_eb *k, const char **format)
 	}
 	else
 		k->dst = iab((va_arg(ap, int)), 10);
+	((k->dst[0] == '0') && (k->p_n == 0) && k->prec) ? (ft_strclr(k->dst)) : 0;
 	(k->dst[0] == '-') ? (k->neg = 1) : (k->neg = 0);
-	if (k->prec)
+	k->prec ? found_preco(k) : 0;
+	if ((k->width) && ((k->w_n) > (ft_strlen(k->dst))))
 	{
-		found_preco(k);
-		(!(k->width) && (k->plus) && !(k->neg)) ? k->dst = ft_strjoin("+", k->dst) : 0;
-	}
-	if (k->width)
-	{
-		if (k->plus && !(k->neg))
+		if (((k->plus) || (k->space)) && !(k->neg))
 			found_width(k, format, 1);
 		else if (k->plus && k->neg)
 			found_width(k, format, 0);
@@ -48,8 +45,7 @@ void	ft_dec(va_list ap, t_eb *k, const char **format)
 			found_width(k, format, 0);
 	}
 	else
-		ft_putstr(k->dst);
-
+		print_wany(k);
 }
 
 /*
@@ -58,28 +54,12 @@ void	ft_dec(va_list ap, t_eb *k, const char **format)
 
 void	ft_string(va_list ap, t_eb *k, const char **format)
 {
-	int count;
-
+	k->plus = 0;
+	k->hash = 0;
+	k->space = 0;
 	k->dst = (va_arg(ap, char *));
-	if ((k->prec) && !(k->width))
-	{
-		if (k->p_n <= ft_strlen(k->dst))
-			write(1, k->dst, (size_t)k->p_n);
-		else
-			ft_putstr(k->dst);
-	}
-	else if ((k->width) && !(k->prec))
-	{
-		if (k->w_n > ft_strlen(k->dst))
-		{
-			count = (k->w_n - (int)ft_strlen(k->dst));
-			while (count--)
-				write(1, " ", 1);
-		}
-		ft_putstr(k->dst);
-	}
-	else
-		ft_putstr(k->dst);
+	(k->dst == NULL) ? k->dst = "(null)" : 0;
+	k->prec ? found_spreco(k) : 0;
 }
 
 /*
