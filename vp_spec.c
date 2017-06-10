@@ -45,7 +45,7 @@ void	ft_dec(va_list ap, t_eb *k, const char **format)
 			found_width(k, format, 0);
 	}
 	else
-		print_wany(k);
+		print_wany(k, format);
 }
 
 /*
@@ -54,12 +54,18 @@ void	ft_dec(va_list ap, t_eb *k, const char **format)
 
 void	ft_string(va_list ap, t_eb *k, const char **format)
 {
+	char *str;
+
 	k->plus = 0;
 	k->hash = 0;
 	k->space = 0;
 	k->dst = (va_arg(ap, char *));
+	str = ft_strnew((size_t)k->p_n);
 	(k->dst == NULL) ? k->dst = "(null)" : 0;
-	k->prec ? found_spreco(k) : 0;
+	if (k->prec && (k->p_n >= 0))
+		((k->p_n < ft_strlen(k->dst))) ?
+				k->dst = ft_strncpy(str, k->dst, k->p_n) : 0;
+	(k->width) ? found_width(k, format, 0) : print_wany(k, format);
 }
 
 /*
@@ -69,6 +75,7 @@ void	ft_string(va_list ap, t_eb *k, const char **format)
 void	ft_ooctal(va_list ap, t_eb *k, const char **format)
 {
 	k->plus = 0;
+	k->space = 0;
 	if ((k->h) || (k->hh) || (k->l) || (k->ll) || (k->j) || (k->z))
 	{
 		(k->h == 1) ? (k->dst = iab((unsigned short)(va_arg(ap, int)), 8)) : 0;
@@ -80,6 +87,23 @@ void	ft_ooctal(va_list ap, t_eb *k, const char **format)
 	}
 	else
 		k->dst = iab((va_arg(ap, unsigned int)), 8);
+	(k->dst[0] == '0') ? (ft_strclr(k->dst)) : 0;
+	k->hash ? (k->p_n -= 1) : 0;
+	k->prec ? found_preco(k) : 0;
+	k->hash ? (k->w_n -= 1) : 0;
+	if ((k->width) && ((k->w_n) > (ft_strlen(k->dst))))
+	{
+		if (((k->plus) || (k->space)) && !(k->neg))
+			found_width(k, format, 1);
+		else if (k->plus && k->neg)
+			found_width(k, format, 0);
+		else if (k->plus == 0 && !(k->neg))
+			found_width(k, format, 0);
+		else if (k->plus == 0 && (k->neg))
+			found_width(k, format, 0);
+	}
+	else
+		print_wany(k, format);
 }
 
 /*

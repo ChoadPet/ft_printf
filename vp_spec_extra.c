@@ -41,8 +41,22 @@ void	ft_lddec(va_list ap, t_eb *k, const char **format)
 	}
 	else
 		k->dst = iab((va_arg(ap, long)), 10);
-	ft_putstr(k->dst);
-
+	((k->dst[0] == '0') && (k->p_n == 0) && k->prec) ? (ft_strclr(k->dst)) : 0;
+	(k->dst[0] == '-') ? (k->neg = 1) : (k->neg = 0);
+	k->prec ? found_preco(k) : 0;
+	if ((k->width) && ((k->w_n) > (ft_strlen(k->dst))))
+	{
+		if (((k->plus) || (k->space)) && !(k->neg))
+			found_width(k, format, 1);
+		else if (k->plus && k->neg)
+			found_width(k, format, 0);
+		else if (k->plus == 0 && !(k->neg))
+			found_width(k, format, 0);
+		else if (k->plus == 0 && (k->neg))
+			found_width(k, format, 0);
+	}
+	else
+		print_wany(k, format);
 }
 
 /*
@@ -89,6 +103,4 @@ void	ft_ludec(va_list ap, t_eb *k, const char **format)
 
 void	ft_point(va_list ap, t_eb *k, const char **format)
 {
-
-
 }

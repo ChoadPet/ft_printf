@@ -23,7 +23,7 @@ void	ft_get(va_list ap, const char **format, t_eb *k)
 		if (**format == '.')
 			fck_preco(ap, format, k);
 		found_flago(format, k);
-		biggest_modifier(k);
+		biggest_modifier(k, format);
 		((ft_strchr(k->fl, **format))) ? (*format)++ : 0;
 	}
 	if (ft_strchr(k->sp, **format))
@@ -73,8 +73,4 @@ void	found_speco(const char **format, va_list ap, t_eb *k)
 
 }
 
-void				found_spreco(t_eb *k)
-{
-	
-}
 

@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-void	biggest_modifier(t_eb *k)
+void	biggest_modifier(t_eb *k, const char **format)
 {
 	if (k->z == 1)
 	{
@@ -38,7 +38,7 @@ void	biggest_modifier(t_eb *k)
 	if ((k->l == 1) && !(k->h = 0))
 		k->hh = 0;
 	k->h == 1 ? k->hh = 0 : 0;
-	found_ignored(k);
+	found_ignored(k, format);
 }
 
 int		ft_specdig(int format)
@@ -96,11 +96,11 @@ void	fck_preco(va_list ap, const char **format, t_eb *k)
 	}
 }
 
-void	found_ignored(t_eb *k)
+void	found_ignored(t_eb *k, const char **format)
 {
 	if (k->plus && k->space)
 		k->space = 0;
-	if (((k->minus) || (k->prec)) && (k->zero))
+	if (((k->minus) || ((k->prec) && (**format != 's'))) && (k->zero))
 		k->zero = 0;
 
 
