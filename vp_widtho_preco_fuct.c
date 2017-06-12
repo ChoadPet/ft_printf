@@ -15,6 +15,8 @@
 void	found_preco(t_eb *k)
 {
 	char 	*tmp;
+    char    *str;
+    char    *d;
 	int		i;
 
 	i = 0;
@@ -31,6 +33,8 @@ void	found_preco(t_eb *k)
 	}
 	else
 		k->dst = ft_strjoin(tmp, k->dst);
+    str = k->dst;
+    free(str);
 }
 
 void	found_width(t_eb *k, const char **format, int flag)
@@ -60,14 +64,12 @@ void	print_zero(t_eb *k, const char **format)
 		k->outn++;
 	}
 	if (k->neg)
-	{
 		ft_putchar('-');
-		k->outn++;
-	}
+    k->hash ? hash_func(k, format) : 0;
 	while (k->wcount-- && write(1, "0", 1))
 		k->outn++;
-	if (**format != 's')
-		((k->space) && !(k->neg)) ? ft_putstr(k->dst) : ft_putstr(k->dst + 1);
+	if (**format == 'd')
+		(!(k->neg)) ? ft_putstr(k->dst) : ft_putstr(k->dst + 1);
 	else
 		ft_putstr(k->dst);
 	k->outn += ft_strlen(k->dst);
@@ -133,11 +135,11 @@ void	hash_func(t_eb *k, const char **format)
 	else if (**format == 'x')
 	{
 		ft_putstr("0x");
-		k->outn++;
+		k->outn += 2;
 	}
 	else if (**format == 'X')
 	{
 		ft_putstr("0X");
-		k->outn++;
+		k->outn += 2;
 	}
 }

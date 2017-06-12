@@ -18,10 +18,18 @@
 
 void	ft_char(va_list ap, t_eb *k, const char **format)
 {
-	k->dst = ft_strnew(2);
+	k->hash = 0;
+	k->space = 0;
+	k->plus = 0;
+	k->prec = 0;
+	k->dst = ft_strnew(1);
 	k->dst[0] = (char) va_arg(ap, int);
-	k->dst[1] = '\0';
-	write(1, &k->dst[0], 1);
+    if (k->dst[0] == 0)
+    {
+        k->outn++;
+        k->w_n -= 1;
+    }
+    found_width(k, format, 0);
 }
 
 /*
@@ -44,7 +52,7 @@ void	ft_lddec(va_list ap, t_eb *k, const char **format)
 	((k->dst[0] == '0') && (k->p_n == 0) && k->prec) ? (ft_strclr(k->dst)) : 0;
 	(k->dst[0] == '-') ? (k->neg = 1) : (k->neg = 0);
 	k->prec ? found_preco(k) : 0;
-	if ((k->width) && ((k->w_n) > (ft_strlen(k->dst))))
+	if ((k->width) && ((k->w_n) > (int)(ft_strlen(k->dst))))
 	{
 		if (((k->plus) || (k->space)) && !(k->neg))
 			found_width(k, format, 1);
@@ -77,7 +85,23 @@ void	ft_looctal(va_list ap, t_eb *k, const char **format)
 	}
 	else
 		k->dst = ixb((va_arg(ap, unsigned long)), 8, 0);
-	ft_putstr(k->dst);
+	(k->dst[0] == '0') ? (ft_strclr(k->dst)) : 0;
+	k->hash ? (k->p_n -= 1) : 0;
+	k->prec ? found_preco(k) : 0;
+	k->hash ? (k->w_n -= 1) : 0;
+	if ((k->width) && ((k->w_n) > (int)(ft_strlen(k->dst))))
+	{
+		if (((k->plus) || (k->space)) && !(k->neg))
+			found_width(k, format, 1);
+		else if (k->plus && k->neg)
+			found_width(k, format, 0);
+		else if (k->plus == 0 && !(k->neg))
+			found_width(k, format, 0);
+		else if (k->plus == 0 && (k->neg))
+			found_width(k, format, 0);
+	}
+	else
+		print_wany(k, format);
 }
 
 /*
@@ -98,9 +122,19 @@ void	ft_ludec(va_list ap, t_eb *k, const char **format)
 	}
 	else
 		(k->dst == NULL) ? (k->dst = ixb((va_arg(ap, unsigned long)), 10, 0)) : 0;
-	ft_putstr(k->dst);
-}
-
-void	ft_point(va_list ap, t_eb *k, const char **format)
-{
+	(k->dst[0] == '0') ? (ft_strclr(k->dst)) : 0;
+	k->prec ? found_preco(k) : 0;
+	if ((k->width) && ((k->w_n) > (int)(ft_strlen(k->dst))))
+	{
+		if (((k->plus) || (k->space)) && !(k->neg))
+			found_width(k, format, 1);
+		else if (k->plus && k->neg)
+			found_width(k, format, 0);
+		else if (k->plus == 0 && !(k->neg))
+			found_width(k, format, 0);
+		else if (k->plus == 0 && (k->neg))
+			found_width(k, format, 0);
+	}
+	else
+		print_wany(k, format);
 }
