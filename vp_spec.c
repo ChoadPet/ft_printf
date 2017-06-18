@@ -34,16 +34,8 @@ void	ft_dec(va_list ap, t_eb *k, const char **format)
 	(k->dst[0] == '-') ? (k->neg = 1) : (k->neg = 0);
 	k->prec ? found_preco(k) : 0;
 	if ((k->width) && ((k->w_n) > (int)(ft_strlen(k->dst))))
-	{
-		if (((k->plus) || (k->space)) && !(k->neg))
-			found_width(k, format, 1);
-		else if (k->plus && k->neg)
-			found_width(k, format, 0);
-		else if (k->plus == 0 && !(k->neg))
-			found_width(k, format, 0);
-		else if (k->plus == 0 && (k->neg))
-			found_width(k, format, 0);
-	}
+		(((k->plus) || (k->space)) && !(k->neg)) ? found_width(k, format, 1) :
+		found_width(k, format, 0);
 	else
 		print_wany(k, format);
 }
@@ -56,17 +48,17 @@ void	ft_string(va_list ap, t_eb *k, const char **format)
 {
 	char *str;
 
+	str = NULL;
 	k->plus = 0;
 	k->hash = 0;
 	k->space = 0;
 	k->dst = (va_arg(ap, char *));
-	str = ft_strnew((size_t)k->p_n);
 	(k->dst == NULL) ? k->dst = "(null)" : 0;
+	k->dst != NULL ? (str = ft_strnew((size_t)k->p_n)) : 0;
 	if (k->prec && (k->p_n >= 0))
-	  ((k->p_n < (int)ft_strlen(k->dst))) ?
-				k->dst = ft_strncpy(str, k->dst, k->p_n) : 0;
+	  ((k->p_n < (int)ft_strlen(k->dst))) ? k->dst = ft_strncpy(str, k->dst, k->p_n) : 0;
 	(k->width) ? found_width(k, format, 0) : print_wany(k, format);
-    free(str);
+	str != NULL ? ft_strdel(&str) : 0;
 }
 
 /*
@@ -79,32 +71,28 @@ void	ft_ooctal(va_list ap, t_eb *k, const char **format)
 	k->space = 0;
 	if ((k->h) || (k->hh) || (k->l) || (k->ll) || (k->j) || (k->z))
 	{
-		(k->h == 1) ? (k->dst = iab((unsigned short)(va_arg(ap, int)), 8)) : 0;
-		(k->hh == 1) ? (k->dst = iab((unsigned char)(va_arg(ap, int)), 8)) : 0;
-		(k->l == 1) ? (k->dst = iab((va_arg(ap, unsigned long)), 8)) : 0;
-		(k->ll == 1) ? (k->dst = iab((va_arg(ap, unsigned long long)), 8)) : 0;
-		(k->j == 1) ? (k->dst = iab((va_arg(ap, uintmax_t)), 8)) : 0;
-		(k->z == 1) ? (k->dst = iab((va_arg(ap, size_t)), 8)) : 0;
+		(k->h) ? (k->dst = ixb((unsigned short)(va_arg(ap, int)), 8, 0)) : 0;
+		(k->hh) ? (k->dst = ixb((unsigned char)(va_arg(ap, int)), 8, 0)) : 0;
+		(k->l) ? (k->dst = ixb((va_arg(ap, unsigned long)), 8, 0)) : 0;
+		(k->ll) ? (k->dst = ixb((va_arg(ap, unsigned long long)), 8, 0)) : 0;
+		(k->j) ? (k->dst = ixb((va_arg(ap, uintmax_t)), 8, 0)) : 0;
+		(k->z) ? (k->dst = ixb((va_arg(ap, size_t)), 8, 0)) : 0;
 	}
 	else
-		k->dst = iab((va_arg(ap, unsigned int)), 8);
+		k->dst = ixb((va_arg(ap, unsigned int)), 8, 0);
 	(k->dst[0] == '0' && k->prec && !k->p_n) ? (ft_strclr(k->dst)) : 0;
+	k->dst[0] == '0' ? k->hash = 0 : 0;
 	k->hash ? (k->p_n -= 1) : 0;
 	k->prec ? found_preco(k) : 0;
 	k->hash ? (k->w_n -= 1) : 0;
 	if ((k->width) && ((k->w_n) > (int)(ft_strlen(k->dst))))
 	{
-		if (((k->plus) || (k->space)) && !(k->neg))
-			found_width(k, format, 1);
-		else if (k->plus && k->neg)
-			found_width(k, format, 0);
-		else if (k->plus == 0 && !(k->neg))
-			found_width(k, format, 0);
-		else if (k->plus == 0 && (k->neg))
-			found_width(k, format, 0);
+		(((k->plus) || (k->space)) && !(k->neg)) ? found_width(k, format, 1) :
+		found_width(k, format, 0);
 	}
 	else
 		print_wany(k, format);
+
 }
 
 /*
@@ -114,36 +102,35 @@ void	ft_ooctal(va_list ap, t_eb *k, const char **format)
 void	ft_xhex(va_list ap, t_eb *k, char const **format)
 {
 	k->plus = 0;
+	k->space = 0;
+	**format == 'p' ? k->space = 0 : 0;
 	if ((k->h) || (k->hh) || (k->l) || (k->ll) || (k->j) || (k->z))
 	{
-		(k->h == 1) ? (k->dst = ixb((unsigned short)(va_arg(ap, unsigned int)), 16, format)) : 0;
-		(k->hh == 1) ? (k->dst = ixb((unsigned char)(va_arg(ap, unsigned int)), 16, format)) : 0;
-		(k->l == 1) ? (k->dst = ixb((va_arg(ap, unsigned long)), 16, format)) : 0;
-		(k->ll == 1) ? (k->dst = ixb((va_arg(ap, unsigned long long)), 16, format)) : 0;
-		(k->j == 1) ? (k->dst = ixb((va_arg(ap, uintmax_t)), 16, format)) : 0;
-		(k->z == 1) ? (k->dst = ixb((va_arg(ap, size_t)), 16, format)) : 0;
+		(k->h) ? (k->dst = ixb((unsigned short)(va_arg(ap, unsigned int)), 16, format)) : 0;
+		(k->hh) ? (k->dst = ixb((unsigned char)(va_arg(ap, unsigned int)), 16, format)) : 0;
+		(k->l) ? (k->dst = ixb((va_arg(ap, unsigned long)), 16, format)) : 0;
+		(k->ll) ? (k->dst = ixb((va_arg(ap, unsigned long long)), 16, format)) : 0;
+		(k->j) ? (k->dst = ixb((va_arg(ap, uintmax_t)), 16, format)) : 0;
+		(k->z) ? (k->dst = ixb((va_arg(ap, size_t)), 16, format)) : 0;
 	}
 	else
 		k->dst = ixb((va_arg(ap, unsigned int)), 16, format);
-    (k->dst[0] == '0') ? (k->hash = 0) : 0;
+    (k->dst[0] == '0' && **format != 'p') ? (k->hash = 0) : 0;
+	if (k->dst[0] == '0')
+	{
+		k->dst = (char *)malloc(sizeof(char) * 2);
+		k->dst[0] = '0';
+		k->dst[1] = '\0';
+	}
     (k->dst[0] == '0' && k->prec && !k->p_n) ? (ft_strclr(k->dst)) : 0;
-	k->hash ? (k->p_n -= 2) : 0;
+	(k->hash && **format != 'p' && **format != 'x') ? (k->p_n -= 2) : 0;
 	k->prec ? found_preco(k) : 0;
 	k->hash ? (k->w_n -= 2) : 0;
 	if ((k->width) && ((k->w_n) > (int)(ft_strlen(k->dst))))
-	{
-		if (((k->plus) || (k->space)) && !(k->neg))
-			found_width(k, format, 1);
-		else if (k->plus && k->neg)
-			found_width(k, format, 0);
-		else if (k->plus == 0 && !(k->neg))
-			found_width(k, format, 0);
-		else if (k->plus == 0 && (k->neg))
-			found_width(k, format, 0);
-	}
+		(((k->plus) || (k->space)) && !(k->neg)) ? found_width(k, format, 1) :
+		found_width(k, format, 0);
 	else
 		print_wany(k, format);
-
 }
 
 /*
@@ -156,29 +143,20 @@ void	ft_udec(va_list ap, t_eb *k, const char **format)
     k->space = 0;
 	if ((k->h) || (k->hh) || (k->l) || (k->ll) || (k->j) || (k->z))
 	{
-		(k->h == 1) ? (k->dst = ixb((unsigned short) (va_arg(ap, unsigned int)), 10, 0)) : 0;
-		(k->hh == 1) ? (k->dst = ixb((unsigned char) (va_arg(ap, unsigned int)), 10, 0)) : 0;
-		(k->l == 1) ? (k->dst = ixb((va_arg(ap, unsigned long)), 10, 0)) : 0;
-		(k->ll == 1) ? (k->dst = ixb((va_arg(ap, unsigned long long)), 10, 0)) : 0;
-		(k->j == 1) ? (k->dst = ixb((va_arg(ap, uintmax_t)), 10, 0)) : 0;
-		(k->z == 1) ? (k->dst = ixb((va_arg(ap, size_t)), 10, 0)) : 0;
+		(k->h) ? (k->dst = ixb((unsigned short)(va_arg(ap, unsigned int)), 10, 0)) : 0;
+		(k->hh) ? (k->dst = ixb((unsigned char)(va_arg(ap, unsigned int)), 10, 0)) : 0;
+		(k->l) ? (k->dst = ixb((va_arg(ap, unsigned long)), 10, 0)) : 0;
+		(k->ll) ? (k->dst = ixb((va_arg(ap, unsigned long long)), 10, 0)) : 0;
+		(k->j) ? (k->dst = ixb((va_arg(ap, uintmax_t)), 10, 0)) : 0;
+		(k->z) ? (k->dst = ixb((va_arg(ap, size_t)), 10, 0)) : 0;
 	}
 	else
 		k->dst = ixb((va_arg(ap, unsigned int)), 10, 0);
     (k->dst[0] == '0' && k->prec && !k->p_n) ? (ft_strclr(k->dst)) : 0;
 	k->prec ? found_preco(k) : 0;
 	if ((k->width) && ((k->w_n) > (int)(ft_strlen(k->dst))))
-	{
-		if (((k->plus) || (k->space)) && !(k->neg))
-			found_width(k, format, 1);
-		else if (k->plus && k->neg)
-			found_width(k, format, 0);
-		else if (k->plus == 0 && !(k->neg))
-			found_width(k, format, 0);
-		else if (k->plus == 0 && (k->neg))
-			found_width(k, format, 0);
-	}
+		(((k->plus) || (k->space)) && !(k->neg)) ? found_width(k, format, 1) :
+		found_width(k, format, 0);
 	else
 		print_wany(k, format);
 }
-

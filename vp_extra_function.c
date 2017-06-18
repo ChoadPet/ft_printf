@@ -23,7 +23,7 @@ int		count_dforiab(intmax_t value, int base)
 	i = 0;
 	if ((value <= 0) && (base == 10))
 		i++;
-	while (value != 0)
+	while (value)
 	{
 		value /= base;
 		i++;
@@ -56,18 +56,18 @@ char	*iab(intmax_t value, int base)
 {
 	intmax_t	i;
 	int			j;
-	char		*str;
+//	char		*str;
 
 	j = count_dforiab(value, base);
-	str = (char *)malloc(sizeof(char) * (j + 1));
-	str[j] = '\0';
+	g_kek = (char *)malloc(sizeof(char) * (j + 1));
+	g_kek[j] = '\0';
 	if (value == 0)
 	{
-		str[0] = 48;
-		return (str);
+		g_kek[0] = 48;
+		return (g_kek);
 	}
 	if (value < 0 && base == 10)
-		str[0] = '-';
+		g_kek[0] = '-';
 	while (value)
 	{
 		i = value % base;
@@ -75,10 +75,10 @@ char	*iab(intmax_t value, int base)
 			i = -i;
 		if (i > 9)
 			i += 7;
-		str[j-- - 1] = (char)(i + 48);
+		g_kek[j-- - 1] = (char)(i + 48);
 		value /= base;
 	}
-	return (str);
+	return (g_kek);
 }
 
 /*
@@ -89,27 +89,27 @@ char	*ixb(uintmax_t value, int base, char const **format)
 {
 	uintmax_t	i;
 	int			j;
-	char		*str;
+//	char		*str;
 
 	j = count_dforixb(value, base);
-	str = (char *)malloc(sizeof(char) * (j + 1));
-	str[j] = '\0';
+	g_s = (char *)malloc(sizeof(char) * (j + 1));
+	g_s[j] = '\0';
 	if (value == 0)
 	{
-		str[0] = '0';
-		return (str);
+		g_s[0] = '0';
+		return (g_s);
 	}
 	while (value)
 	{
 		i = value % base;
 		if ((i > 9) && (**format == 'X'))
 			i += 7;
-		else if ((i > 9) && (**format== 'x'))
+		else if ((i > 9) && (**format== 'x' || **format == 'p'))
 			i += 39;
-		str[j-- - 1] = (char)(i + 48);
+		g_s[j-- - 1] = (char)(i + 48);
 		value /= base;
 	}
-	return (str);
+	return (g_s);
 }
 
 /*

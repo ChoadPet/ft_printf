@@ -22,7 +22,7 @@ OBJ :=	$(patsubst %.c,%.o,$(wildcard *.c))						\
 all : $(NAME)
 
 $(NAME) : $(OBJ)
-	ar -cru $(NAME) $(OBJ)
+	ar rc $(NAME) $(OBJ)
 	ranlib $(NAME)
 
 %.o : %c.

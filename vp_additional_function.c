@@ -100,8 +100,7 @@ void	found_ignored(t_eb *k, const char **format)
 {
 	if (k->plus && k->space)
 		k->space = 0;
-	if (((k->minus) || ((k->prec) && (**format != 's'))) && (k->zero))
+	if (((k->minus) || ((k->prec) && (k->p_n >= 0) &&
+			(**format != 's') && (**format != 'c') && (**format != 'S'))))
 		k->zero = 0;
-
-
 }

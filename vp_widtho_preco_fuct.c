@@ -14,27 +14,26 @@
 
 void	found_preco(t_eb *k)
 {
-	char 	*tmp;
+//	char 	*tmp;
     char    *str;
-    char    *d;
 	int		i;
 
 	i = 0;
 	k->pcount = ((k->p_n) - (int)(ft_strlen(k->dst)) + k->neg);
 	if (k->pcount <= 0 && !(k->pcount = 0))
 		return ;
-	tmp = ft_strnew((size_t)k->pcount);
+	g_tmp = ft_strnew((size_t)k->pcount);
 	while (k->pcount--)
-		tmp[i++] = '0';
+		g_tmp[i++] = '0';
 	if (k->neg)
 	{
-		k->dst = ft_strjoin(tmp, k->dst + 1);
+		k->dst = ft_strjoin(g_tmp, k->dst + 1);
 		k->dst = ft_strjoin("-", k->dst);
 	}
 	else
-		k->dst = ft_strjoin(tmp, k->dst);
+		k->dst = ft_strjoin(g_tmp, k->dst);
     str = k->dst;
-    free(str);
+    ft_strdel(&str);
 }
 
 void	found_width(t_eb *k, const char **format, int flag)
@@ -49,7 +48,6 @@ void	found_width(t_eb *k, const char **format, int flag)
 	else if (k->zero)
 		print_zero(k, format);
 }
-
 
 void	print_zero(t_eb *k, const char **format)
 {
@@ -72,6 +70,7 @@ void	print_zero(t_eb *k, const char **format)
 		(!(k->neg)) ? ft_putstr(k->dst) : ft_putstr(k->dst + 1);
 	else
 		ft_putstr(k->dst);
+	(k->dst[0] == 0 && (**format == 'c' || **format == 'C')) ? write(1, k->dst, 1) : 0;
 	k->outn += ft_strlen(k->dst);
 }
 
@@ -84,7 +83,9 @@ void	print_nminus(t_eb *k, const char **format)
 	if ((k->plus && !(k->neg)) ? k->outn++ : 0)
 		ft_putchar('+');
 	k->hash ? hash_func(k, format) : 0;
-	ft_putstr(k->dst);
+
+	(k->dst == "0" && (**format == 'c' || **format == 'C')) ? write(1, '\0', 1) : ft_putstr(k->dst);
+	(k->dst[0] == 0  && (**format == 'c' || **format == 'C')) ? write(1, k->dst, 1) : 0;
 	k->outn += ft_strlen(k->dst);
 }
 
@@ -102,44 +103,9 @@ void	print_yminus(t_eb *k, const char **format)
 		k->outn++;
 	}
 	k->hash ? hash_func(k, format) : 0;
-	ft_putstr(k->dst);
+	(k->dst == "0" && (**format == 'c' || **format == 'C')) ? write(1, '\0', 1) : ft_putstr(k->dst);
+	(k->dst[0] == 0  && **format == 'c') ? write(1, &k->dst[0], 1) : 0;
 	k->outn += ft_strlen(k->dst);
 	while (k->wcount-- && write(1, " ", 1))
 		k->outn++;
-}
-
-void	print_wany(t_eb *k, const char **format)
-{
-	if (k->plus && !(k->neg))
-	{
-		ft_putchar('+');
-		k->outn++;
-	}
-	if (k->space && !(k->neg))
-	{
-		ft_putchar(' ');
-		k->outn++;
-	}
-	k->hash ? hash_func(k, format) : 0;
-	ft_putstr(k->dst);
-	k->outn += ft_strlen(k->dst);
-}
-
-void	hash_func(t_eb *k, const char **format)
-{
-	if (**format == 'o' || **format == 'O')
-	{
-		ft_putchar('0');
-		k->outn++;
-	}
-	else if (**format == 'x')
-	{
-		ft_putstr("0x");
-		k->outn += 2;
-	}
-	else if (**format == 'X')
-	{
-		ft_putstr("0X");
-		k->outn += 2;
-	}
 }

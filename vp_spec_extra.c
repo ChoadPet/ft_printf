@@ -29,7 +29,7 @@ void	ft_char(va_list ap, t_eb *k, const char **format)
         k->outn++;
         k->w_n -= 1;
     }
-    found_width(k, format, 0);
+	found_width(k, format, 0);
 }
 
 /*
@@ -38,6 +38,7 @@ void	ft_char(va_list ap, t_eb *k, const char **format)
 
 void	ft_lddec(va_list ap, t_eb *k, const char **format)
 {
+	k->hash = 0;
 	if ((k->h) || (k->hh) || (k->l) || (k->ll) || (k->j) || (k->z))
 	{
 		(k->h == 1) ? (k->l = 1) : 0;
@@ -54,14 +55,8 @@ void	ft_lddec(va_list ap, t_eb *k, const char **format)
 	k->prec ? found_preco(k) : 0;
 	if ((k->width) && ((k->w_n) > (int)(ft_strlen(k->dst))))
 	{
-		if (((k->plus) || (k->space)) && !(k->neg))
-			found_width(k, format, 1);
-		else if (k->plus && k->neg)
-			found_width(k, format, 0);
-		else if (k->plus == 0 && !(k->neg))
-			found_width(k, format, 0);
-		else if (k->plus == 0 && (k->neg))
-			found_width(k, format, 0);
+		(((k->plus) || (k->space)) && !(k->neg)) ? found_width(k, format, 1) :
+		found_width(k, format, 0);
 	}
 	else
 		print_wany(k, format);
@@ -74,31 +69,26 @@ void	ft_lddec(va_list ap, t_eb *k, const char **format)
 void	ft_looctal(va_list ap, t_eb *k, const char **format)
 {
 	k->plus = 0;
+	k->space = 0;
 	if ((k->h) || (k->hh) || (k->l) || (k->ll) || (k->j) || (k->z))
 	{
-		(k->h == 1) ? (k->l = 1) : 0;
-		(k->hh == 1) ? (k->l = 1) : 0;
-		(k->l == 1) ? (k->dst = ixb((va_arg(ap, unsigned long)), 8, 0)) : 0;
-		(k->ll == 1) ? (k->dst = ixb((va_arg(ap, unsigned long long)), 8, 0)) : 0;
-		(k->j == 1) ? (k->dst = ixb((va_arg(ap, uintmax_t)), 8, 0)) : 0;
-		(k->z == 1) ? (k->dst = ixb((va_arg(ap, size_t)), 8, 0)) : 0;
+		(k->h) ? (k->l = 1) : 0;
+		(k->hh) ? (k->l = 1) : 0;
+		(k->l) ? (k->dst = ixb((va_arg(ap, unsigned long)), 8, 0)) : 0;
+		(k->ll) ? (k->dst = ixb((va_arg(ap, unsigned long long)), 8, 0)) : 0;
+		(k->j) ? (k->dst = ixb((va_arg(ap, uintmax_t)), 8, 0)) : 0;
+		(k->z) ? (k->dst = ixb((va_arg(ap, size_t)), 8, 0)) : 0;
 	}
 	else
 		k->dst = ixb((va_arg(ap, unsigned long)), 8, 0);
-	(k->dst[0] == '0') ? (ft_strclr(k->dst)) : 0;
+	(k->dst[0] == '0' && k->prec && !k->p_n) ? (ft_strclr(k->dst)) : 0;
 	k->hash ? (k->p_n -= 1) : 0;
 	k->prec ? found_preco(k) : 0;
 	k->hash ? (k->w_n -= 1) : 0;
 	if ((k->width) && ((k->w_n) > (int)(ft_strlen(k->dst))))
 	{
-		if (((k->plus) || (k->space)) && !(k->neg))
-			found_width(k, format, 1);
-		else if (k->plus && k->neg)
-			found_width(k, format, 0);
-		else if (k->plus == 0 && !(k->neg))
-			found_width(k, format, 0);
-		else if (k->plus == 0 && (k->neg))
-			found_width(k, format, 0);
+		(((k->plus) || (k->space)) && !(k->neg)) ? found_width(k, format, 1) :
+		found_width(k, format, 0);
 	}
 	else
 		print_wany(k, format);
@@ -111,30 +101,24 @@ void	ft_looctal(va_list ap, t_eb *k, const char **format)
 void	ft_ludec(va_list ap, t_eb *k, const char **format)
 {
 	k->plus = 0;
+	k->space = 0;
 	if ((k->h) || (k->hh) || (k->l) || (k->ll) || (k->j) || (k->z))
 	{
 		(k->h == 1) ? (k->l = 1) : 0;
 		(k->hh == 1) ? (k->l = 1) : 0;
 		(k->l == 1) ? (k->dst = ixb((va_arg(ap, unsigned long)), 10, 0)) : 0;
-		(k->ll == 1) ? (k->dst = ixb((va_arg(ap, unsigned long long)), 10, 0)) : 0;
+		(k->ll == 1) ?
+		(k->dst = ixb((va_arg(ap, unsigned long long)), 10, 0)) : 0;
 		(k->j == 1) ? (k->dst = ixb((va_arg(ap, uintmax_t)), 10, 0)) : 0;
 		(k->z == 1) ? (k->dst = ixb((va_arg(ap, size_t)), 10, 0)) : 0;
 	}
 	else
-		(k->dst == NULL) ? (k->dst = ixb((va_arg(ap, unsigned long)), 10, 0)) : 0;
-	(k->dst[0] == '0') ? (ft_strclr(k->dst)) : 0;
+		(k->dst == NULL) ? k->dst = ixb((va_arg(ap, unsigned long)), 10, 0) : 0;
+	(k->dst[0] == '0' && k->prec && !k->p_n) ? (ft_strclr(k->dst)) : 0;
 	k->prec ? found_preco(k) : 0;
 	if ((k->width) && ((k->w_n) > (int)(ft_strlen(k->dst))))
-	{
-		if (((k->plus) || (k->space)) && !(k->neg))
-			found_width(k, format, 1);
-		else if (k->plus && k->neg)
-			found_width(k, format, 0);
-		else if (k->plus == 0 && !(k->neg))
-			found_width(k, format, 0);
-		else if (k->plus == 0 && (k->neg))
-			found_width(k, format, 0);
-	}
+		(((k->plus) || (k->space)) && !(k->neg)) ? found_width(k, format, 1) :
+		found_width(k, format, 0);
 	else
 		print_wany(k, format);
 }

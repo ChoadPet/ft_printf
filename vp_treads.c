@@ -12,77 +12,40 @@
 
 #include "ft_printf.h"
 
-void	ft_get(va_list ap, const char **format, t_eb *k)
+void	hash_func(t_eb *k, const char **format)
 {
-	k->sp = "sSpdDioOuUxXcC";
-	k->fl = "#0-+#.*123456789 hljz";
-	while (ft_strchr(k->fl, **format) && (**format))
+	if (**format == 'o' || **format == 'O')
 	{
-		if (ft_specdig(**format) || **format == '*')
-			fck_width(ap, format, k);
-		if (**format == '.')
-			fck_preco(ap, format, k);
-		found_flago(format, k);
-		biggest_modifier(k, format);
-		((ft_strchr(k->fl, **format))) ? (*format)++ : 0;
+		ft_putchar('0');
+		k->outn++;
 	}
-	if (ft_strchr(k->sp, **format) && (**format))
-		found_speco(format, ap, k);
-	else
+	else if (**format == 'x' || **format == 'p')
 	{
-		k->space = 0;
-		k->dst = ft_strnew(1);
-		k->dst[0] = **format;
-		found_width(k, format, 0);
+		ft_putstr("0x");
+		k->outn += 2;
+	}
+	else if (**format == 'X')
+	{
+		ft_putstr("0X");
+		k->outn += 2;
 	}
 }
 
-void	found_flago(const char **format, t_eb *k)
+void	print_wany(t_eb *k, const char **format)
 {
-	(**format == '-') ? (k->minus = 1) : 0;
-	(**format == '+') ? (k->plus = 1) : 0;
-	(**format == ' ') ? (k->space = 1) : 0;
-	(**format == '#') ? (k->hash = 1) : 0;
-	(**format == '0') ? (k->zero = 1) : 0;
-	if ((**format == 'h') && (*(*format + 1) == 'h'))
+	if (k->plus && !(k->neg))
 	{
-		k->hh = 1;
-		(*format)++;
+		ft_putchar('+');
+		k->outn++;
 	}
-	else if (**format == 'h')
-		k->h = 1;
-	if ((**format == 'l') && (*(*format + 1) == 'l'))
+	if (k->space && !(k->neg))
 	{
-		k->ll = 1;
-		(*format)++;
+		ft_putchar(' ');
+		k->outn++;
 	}
-	else if (**format == 'l')
-		k->l = 1;
-	if (**format == 'j')
-		k->j = 1;
-	if (**format == 'z')
-		k->z = 1;
+	k->hash ? hash_func(k, format) : 0;
+	(*k->dst == '\0' && (**format == 'c' || **format == 'C')) ? write(1, "\0", 1) : ft_putstr(k->dst);
+	k->outn += ft_strlen(k->dst);
+	((**format == 'S' || **format == 'C') && (k->dst != NULL)) ? ft_strdel(&k->dst) : 0;
 }
-
-void	found_speco(const char **format, va_list ap, t_eb *k)
-{
-	((**format == 'd') || (**format == 'i')) ? ft_dec(ap, k, format) : 0;
-	(**format == 's') ? ft_string(ap, k, format) : 0;
-	(**format == 'o') ? ft_ooctal(ap, k, format) : 0;
-	(**format == 'O') ? ft_looctal(ap, k, format) : 0;
-	(**format == 'x') ? ft_xhex(ap, k, format) : 0;
-	(**format == 'X') ? ft_xhex(ap, k, format) : 0;
-	(**format == 'u') ? ft_udec(ap, k, format) : 0;
-	(**format == 'U') ? ft_ludec(ap, k, format): 0;
-	((**format == 'c') || (**format == 'C')) ? ft_char(ap, k, format) : 0;
-	(**format == 'D') ? ft_lddec(ap, k, format) : 0;
-	if (**format == 'p')
-	{
-		k->hash = 1;
-		k->l = 1;
-		ft_xhex(ap, k, format);
-	}
-
-}
-
 
