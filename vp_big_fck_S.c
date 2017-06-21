@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   vp_big_fck_S.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vpoltave <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/03/17 20:50:34 by vpoltave          #+#    #+#             */
-/*   Updated: 2017/03/17 20:53:39 by vpoltave         ###   ########.fr       */
+/*   Created: 2017/06/19 15:42:37 by vpoltave          #+#    #+#             */
+/*   Updated: 2017/06/21 18:53:27 by vpoltave         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,34 +14,29 @@
 
 void	ft_bigs(va_list ap, t_eb *k, const char **format)
 {
-	int 	*utf;
-	int 	new;
-
-	k->hash = 0;
-	k->plus = 0;
-	k->space = 0;
-	new = 0;
-	utf = va_arg(ap, int *);
-	if (utf != NULL)
+	found_ignored(k, format);
+	k->utf = va_arg(ap, int *);
+	if (k->utf != NULL)
 	{
-		while (*utf)
+		while (*k->utf)
 		{
 			if (k->prec && (k->p_n >= 0))
-				preco_for_bs(k, utf, new);
-			else if (*utf)
+				preco_for_bs(k, k->utf, k->new);
+			else if (*k->utf)
 			{
-				if (*utf >= 0 && *utf <= 127)
-					first_octet(k, utf, 1);
-				else if (*utf >= 128 && *utf <= 2047)
-					second_octet(k, utf, new, 2);
-				else if (*utf >= 2048 && *utf <= 65535)
-					third_octet(k, utf, new, 3);
+				if (*k->utf >= 0 && *k->utf <= 127)
+					first_octet(k, k->utf, 1);
+				else if (*k->utf >= 128 && *k->utf <= 2047)
+					second_octet(k, k->utf, k->new, 2);
+				else if (*k->utf >= 2048 && *k->utf <= 65535)
+					third_octet(k, k->utf, k->new, 3);
 			}
-			utf++;
+			k->utf++;
 		}
 	}
-	((k->dst == NULL) && (utf == NULL)) ? k->dst = ft_strdup("(null)") : 0;
-	(utf != NULL && (*utf == 0) && !(k->dst)) ? k->dst = ft_strdup("\0") : 0;
+	((k->dst == NULL) && (k->utf == NULL)) ? k->dst = ft_strdup("(null)") : 0;
+	(k->utf != NULL && (*k->utf == 0) && !(k->dst)) ?
+	k->dst = ft_strdup("\0") : 0;
 	(k->width && (((k->w_n) > (int)(ft_strlen(k->dst))))) ?
 	found_width(k, format, 0) : print_wany(k, format);
 }
@@ -67,10 +62,10 @@ void	preco_for_bs(t_eb *k, int *utf, int new)
 		k->p_n = 0;
 }
 
-void 	first_octet(t_eb *k, int *utf, size_t size)
+void	first_octet(t_eb *k, int *utf, size_t size)
 {
-	char *tmp;
-	char *str;
+	char	*tmp;
+	char	*str;
 
 	str = k->dst;
 	tmp = ft_strnew(size);
@@ -81,10 +76,10 @@ void 	first_octet(t_eb *k, int *utf, size_t size)
 	ft_strdel(&str);
 }
 
-void 	second_octet(t_eb *k, int *utf, int new, size_t size)
+void	second_octet(t_eb *k, int *utf, int new, size_t size)
 {
-	char *tmp;
-	char *str;
+	char	*tmp;
+	char	*str;
 
 	str = k->dst;
 	tmp = ft_strnew(size);
@@ -101,7 +96,7 @@ void 	second_octet(t_eb *k, int *utf, int new, size_t size)
 	ft_strdel(&str);
 }
 
-void 	third_octet(t_eb *k, int *utf, int new, size_t size)
+void	third_octet(t_eb *k, int *utf, int new, size_t size)
 {
 	char *tmp;
 	char *str;
@@ -124,29 +119,3 @@ void 	third_octet(t_eb *k, int *utf, int new, size_t size)
 	ft_strdel(&tmp);
 	ft_strdel(&str);
 }
-
-//void	ft_bigc(va_list ap, t_eb *k, const char **format)
-//{
-//	int 	utf;
-//	int 	new;
-//
-//	k->hash = 0;
-//	k->zero = 0;
-//	k->plus = 0;
-//	k->space = 0;
-//	k->prec = 0;
-//	new = 0;
-//	utf = va_arg(ap, int);
-//	if (utf != NULL)
-//	{
-//		if (utf >= 0 && utf <= 127)
-//			first_octet(k, &utf, 1);
-//		else if (utf >= 128 && utf <= 2047)
-//			second_octet(k, &utf, new, 2);
-//		else if (utf >= 2048 && utf <= 65535)
-//			third_octet(k, &utf, new, 3);
-//	}
-//	((k->dst == NULL) && (utf == NULL)) ? k->dst = ft_strdup("") : 0;
-//	(k->width && (((k->w_n) > (int)(ft_strlen(k->dst))))) ?
-//	found_width(k, format, 0) : print_wany(k, format);
-//}

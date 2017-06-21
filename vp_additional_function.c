@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   vp_additional_function.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vpoltave <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/03/17 20:45:14 by vpoltave          #+#    #+#             */
-/*   Updated: 2017/03/17 20:50:22 by vpoltave         ###   ########.fr       */
+/*   Created: 2017/06/19 15:42:26 by vpoltave          #+#    #+#             */
+/*   Updated: 2017/06/19 16:38:25 by vpoltave         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	fck_width(va_list ap, const char **format, t_eb *k)
 void	fck_preco(va_list ap, const char **format, t_eb *k)
 {
 	k->prec = 1;
-	while ((ft_isdigit(**format)) || (**format == '*') || (**format ==  '.'))
+	while ((ft_isdigit(**format)) || (**format == '*') || (**format == '.'))
 	{
 		while (**format == '.')
 			(*format)++;
@@ -103,4 +103,10 @@ void	found_ignored(t_eb *k, const char **format)
 	if (((k->minus) || ((k->prec) && (k->p_n >= 0) &&
 			(**format != 's') && (**format != 'c') && (**format != 'S'))))
 		k->zero = 0;
+	if (**format == 'S' || (**format == 's' && k->l))
+	{
+		k->hash = 0;
+		k->plus = 0;
+		k->space = 0;
+	}
 }

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   vp_extra_function.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vpoltave <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/03/17 20:45:14 by vpoltave          #+#    #+#             */
-/*   Updated: 2017/03/17 20:50:22 by vpoltave         ###   ########.fr       */
+/*   Created: 2017/06/19 15:42:53 by vpoltave          #+#    #+#             */
+/*   Updated: 2017/06/19 16:17:51 by vpoltave         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,22 +52,18 @@ int		count_dforixb(uintmax_t value, int base)
 ** regular itoa_base
 */
 
-char	*iab(intmax_t value, int base)
+void	iab(intmax_t value, int base, t_eb *k)
 {
 	intmax_t	i;
 	int			j;
-//	char		*str;
 
 	j = count_dforiab(value, base);
-	g_kek = (char *)malloc(sizeof(char) * (j + 1));
-	g_kek[j] = '\0';
+	k->dst = (char *)malloc(sizeof(char) * (j + 1));
+	k->dst[j] = '\0';
 	if (value == 0)
-	{
-		g_kek[0] = 48;
-		return (g_kek);
-	}
+		k->dst[0] = 48;
 	if (value < 0 && base == 10)
-		g_kek[0] = '-';
+		k->dst[0] = '-';
 	while (value)
 	{
 		i = value % base;
@@ -75,41 +71,35 @@ char	*iab(intmax_t value, int base)
 			i = -i;
 		if (i > 9)
 			i += 7;
-		g_kek[j-- - 1] = (char)(i + 48);
+		k->dst[j-- - 1] = (char)(i + 48);
 		value /= base;
 	}
-	return (g_kek);
 }
 
 /*
 ** (%O, %x %X etc) itoa_base
 */
 
-char	*ixb(uintmax_t value, int base, char const **format)
+void	ixb(uintmax_t value, int base, char const **format, t_eb *k)
 {
 	uintmax_t	i;
 	int			j;
-//	char		*str;
 
 	j = count_dforixb(value, base);
-	g_s = (char *)malloc(sizeof(char) * (j + 1));
-	g_s[j] = '\0';
+	k->dst = (char *)malloc(sizeof(char) * (j + 1));
+	k->dst[j] = '\0';
 	if (value == 0)
-	{
-		g_s[0] = '0';
-		return (g_s);
-	}
+		k->dst[0] = '0';
 	while (value)
 	{
 		i = value % base;
 		if ((i > 9) && (**format == 'X'))
 			i += 7;
-		else if ((i > 9) && (**format== 'x' || **format == 'p'))
+		else if ((i > 9) && (**format == 'x' || **format == 'p'))
 			i += 39;
-		g_s[j-- - 1] = (char)(i + 48);
+		k->dst[j-- - 1] = (char)(i + 48);
 		value /= base;
 	}
-	return (g_s);
 }
 
 /*
@@ -135,6 +125,9 @@ void	prep_clear(t_eb *k)
 	k->prec = 0;
 	k->wcount = 0;
 	k->pcount = 0;
+	k->new = 0;
 	k->neg = 0;
+	k->lcount = 0;
+	k->hcount = 0;
 	k->dst = NULL;
 }
